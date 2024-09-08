@@ -13,7 +13,7 @@ function selectedOption(e) {
 </script>
 
 <template>
-  <fieldset class="mt-4 border border-gray-300 p-4 rounded-md">
+  <fieldset class="mt-4 border border-gray-300 p-4 rounded-md grow">
     <legend class="text-lg font-semibold text-slate-800">Price Range</legend>
     <div v-for="(option, index) in props.options" :key="index">
       <input
@@ -22,6 +22,7 @@ function selectedOption(e) {
         :name="props.name"
         :value="option.value"
         @change="selectedOption"
+        :checked="model === option.value"
       />
       <label
         :for="`option-${index}`"
