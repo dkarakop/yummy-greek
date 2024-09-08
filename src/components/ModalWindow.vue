@@ -1,12 +1,12 @@
 <script setup>
 const props = defineProps({
-  isModalOpen: { type: Boolean, required: true },
   modalName: { type: String }
 })
 
-const emit = defineEmits(['close'])
+const model = defineModel({ default: false })
+
 const closeModal = () => {
-  emit('close')
+  model.value = false
 }
 </script>
 
@@ -14,7 +14,7 @@ const closeModal = () => {
   <Teleport to="body">
     <transition>
       <div
-        v-if="props.isModalOpen"
+        v-if="model"
         class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center"
       >
         <div class="bg-white rounded-lg shadow-lg p-6 relative w-10/12">

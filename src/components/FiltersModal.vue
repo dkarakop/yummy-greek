@@ -4,6 +4,8 @@ import GenericRadio from './GenericRadio.vue'
 import { reactive } from 'vue'
 import ModalWindow from './ModalWindow.vue'
 
+const model = defineModel({ default: false })
+
 const filters = reactive({
   // Dietary Preferences
   vegan: false,
@@ -27,10 +29,16 @@ const priceOptions = [
   { label: '€30 - €40', value: '30to40' },
   { label: 'Over €40', value: 'over40' }
 ]
+
+const emit = defineEmits(['filters'])
+const applyFilters = () => {
+  emit('filters', { ...filters })
+  model.value = false
+}
 </script>
 
 <template>
-  <ModalWindow modalName="Filters">
+  <ModalWindow modalName="Filters" v-model="model">
     <!-- Modal Body -->
     <div class="flex gap-6">
       <!-- Dietary Preferences Checkbox-->
@@ -67,7 +75,10 @@ const priceOptions = [
       <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
         Reset Filters
       </button>
-      <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+      <button
+        @click="applyFilters"
+        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+      >
         Apply Filters
       </button>
     </div>
