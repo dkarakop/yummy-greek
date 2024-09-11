@@ -7,6 +7,9 @@ import MenuList from '@/components/MenuList.vue'
 
 const allDishes = ref([])
 const filters = ref({})
+const showFilterModal = ref(false)
+const priceOrder = ref('disabled')
+const alphabeticalOrder = ref('disabled')
 
 //Get all dishes from api.js
 getDishes().then((dishes) => {
@@ -112,7 +115,29 @@ const dishesComputed = computed(function () {
   }
 
   const uniqueDishes = new Set(result) // new Set for preventing duplicate dishes
-  return Array.from(uniqueDishes)
+  const dishesArray = Array.from(uniqueDishes)
+
+  //Sorting: Price Order
+  if (priceOrder.value === 'ascending') {
+    dishesArray.sort((a, b) => {
+      return b.price - a.price
+    })
+  }
+  if (priceOrder.value === 'descending') {
+    dishesArray.sort((a, b) => {
+      return a.price - b.price
+    })
+  }
+
+  //Sorting: Alphabetical Order
+  if (alphabeticalOrder.value === 'AZ') {
+    dishesArray.sort((a, b) => a.name.localeCompare(b.name))
+  }
+  if (alphabeticalOrder.value === 'ZA') {
+    dishesArray.sort((a, b) => b.name.localeCompare(a.name))
+  }
+
+  return dishesArray
 })
 
 //Filters
@@ -120,8 +145,51 @@ function applyFilters(newFilters) {
   filters.value = newFilters
 }
 
-//Filters Modal
-const showFilterModal = ref(false)
+//Price Order
+function togglePriceOrder() {
+  if (priceOrder.value === 'ascending') {
+    priceOrder.value = 'descending'
+    alphabeticalOrder.value = 'disabled'
+  } else if (priceOrder.value === 'descending') {
+    priceOrder.value = 'disabled'
+  } else if (priceOrder.value === 'disabled') {
+    priceOrder.value = 'ascending'
+    alphabeticalOrder.value = 'disabled'
+  }
+}
+
+const togglePriceOrderName = computed(() => {
+  if (priceOrder.value === 'ascending') {
+    return 'Highest to Lowest'
+  } else if (priceOrder.value === 'descending') {
+    return 'Lowest to Highest'
+  } else {
+    return '-'
+  }
+})
+
+//Alphabetical Order
+function toggleAlphabeticalOrder() {
+  if (alphabeticalOrder.value === 'AZ') {
+    alphabeticalOrder.value = 'ZA'
+    priceOrder.value = 'disabled'
+  } else if (alphabeticalOrder.value === 'ZA') {
+    alphabeticalOrder.value = 'disabled'
+  } else if (alphabeticalOrder.value === 'disabled') {
+    alphabeticalOrder.value = 'AZ'
+    priceOrder.value = 'disabled'
+  }
+}
+
+const toggleAlphabeticalOrderName = computed(() => {
+  if (alphabeticalOrder.value === 'AZ') {
+    return 'A-Z'
+  } else if (alphabeticalOrder.value === 'ZA') {
+    return 'Z-A'
+  } else {
+    return '-'
+  }
+})
 </script>
 
 <template>
@@ -138,10 +206,19 @@ const showFilterModal = ref(false)
     <div>
       <p>Sort Price:</p>
       <button
-        @click="orderToggle()"
-        class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+        @click="togglePriceOrder"
+        class="bg-green text-white px-4 py-2 rounded hover:bg-green-600"
       >
-        {{ ascendingOrder === true ? 'Highest to Lowest' : 'Lowest to Highest' }}
+        {{ togglePriceOrderName }}
+      </button>
+    </div>
+    <div>
+      <p>Sort Alphabetical Order:</p>
+      <button
+        @click="toggleAlphabeticalOrder"
+        class="bg-green text-white px-4 py-2 rounded hover:bg-green-600"
+      >
+        {{ toggleAlphabeticalOrderName }}
       </button>
     </div>
 
