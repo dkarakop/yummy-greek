@@ -1,10 +1,21 @@
 <script setup>
+import { useCartStore } from '../stores/cart.js'
 import ModalWindow from '@/components/ModalWindow.vue'
+import DishAmountButtons from './DishAmountButtons.vue'
 
+//Props
 const props = defineProps({
   dish: { type: Object }
 })
+
+//Store
+const cartStore = useCartStore()
+
 const model = defineModel({ default: false })
+
+function closeModal() {
+  model.value = false
+}
 </script>
 
 <template>
@@ -42,8 +53,13 @@ const model = defineModel({ default: false })
           </div>
         </div>
       </div>
-      <button class="px-5 py-0.3 bg-yellow-600 rounded">Go to Menu</button>
-      <button class="px-5 py-0.3 bg-yellow-600 rounded">Add to Card</button>
+      <DishAmountButtons :dish="dish" v-if="cartStore.getDishAmount(dish) !== 0">
+        <button @click="cartStore.resetDishAmount(dish)">Reset Amount</button></DishAmountButtons
+      >
+      <button v-else class="px-5 py-0.3 bg-yellow-600 rounded" @click="cartStore.addDish(dish)">
+        Add to Card
+      </button>
+      <button class="px-5 py-0.3 bg-yellow-600 rounded" @click="closeModal">Go to Menu</button>
     </div>
   </ModalWindow>
 </template>
