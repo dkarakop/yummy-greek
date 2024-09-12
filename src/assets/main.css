@@ -1,3 +1,56 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Belgrano&family=Lilita+One&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* ------------------ Headers ------------------ */
+
+.main-header {
+  font-family: 'Lilita One', system-ui;
+  font-weight: bold;
+  font-style: normal;
+  @apply mt-12 text-3xl sm:text-4xl md:text-6xl lg:text-8xl xl:text-9xl leading-none tracking-tight text-yellow mb-8;
+}
+
+/* ------------------ Text ------------------ */
+.text {
+  font-family: 'Lilita One', system-ui;
+}
+
+.text__secondary--medium {
+  @apply text-lightGrey  text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl;
+}
+.text__secondary--large {
+  @apply text-base  sm:text-lg md:text-xl lg:text-2xl xl:text-3xl mb-2;
+}
+
+/* ------------------ Buttons ------------------ */
+
+.btn {
+  font-family: 'Lilita One', system-ui;
+  font-style: normal;
+  @apply font-bold text-base text-center rounded-lg text-center shadow-2xl;
+}
+
+.btn__primary {
+  @apply px-10 py-5 m-3 bg-green text-lightGrey mb-20 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl;
+}
+
+.btn__primary--interactions {
+  @apply hover:bg-lightGreen hover:text-black hover:underline hover:decoration-solid hover:ring-4 hover:ring-yellow focus:ring-4 focus:outline-none focus:ring-yellow focus:underline focus:decoration-solid;
+}
+
+.btn__cart {
+  @apply px-4 py-2 bg-lightGreen text-darkBlue font-bold md:px-6 md:py-3;
+}
+
+.btn__cart--interactions {
+  @apply hover:bg-green hover:text-white hover:underline hover:decoration-solid hover:ring-2 hover:ring-yellow focus:ring-2 focus:outline-none focus:ring-yellow focus:underline focus:decoration-solid;
+}
