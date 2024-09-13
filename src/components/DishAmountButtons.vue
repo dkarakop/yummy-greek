@@ -1,19 +1,11 @@
 <script setup>
 import { useCartStore } from '../stores/cart.js'
 import { ref } from 'vue'
+import SnackbarComponent from './SnackbarComponent.vue'
 
 const props = defineProps({ dish: { type: Object } })
 
-//Refs
-const isSnackbarVisible = ref(false)
-const snackbarMessage = ref('')
-const showSnackbar = (message) => {
-  snackbarMessage.value = message
-  isSnackbarVisible.value = true
-  setTimeout(() => {
-    isSnackbarVisible.value = false
-  }, 2000)
-}
+const snackbar = ref(null)
 
 //Store
 const cartStore = useCartStore()
@@ -21,12 +13,12 @@ const cartStore = useCartStore()
 // ------- Functions -------//
 function addDish() {
   cartStore.addDish(props.dish)
-  showSnackbar(props.dish.name + ' has been added to your cart!')
+  snackbar.value.showMessage(props.dish.name + ' has been added to your cart!')
 }
 
 function removeDish() {
   cartStore.removeDish(props.dish)
-  showSnackbar(props.dish.name + ' has been removed from your cart!')
+  snackbar.value.showMessage(props.dish.name + ' has been removed from your cart!')
 }
 </script>
 
@@ -55,13 +47,7 @@ function removeDish() {
       </button>
 
       <!-- Snackbar -->
-      <div
-        v-if="isSnackbarVisible"
-        class="fixed text-center text__secondary--medium bottom-4 left-1/2 transform -translate-x-1/2 bg-darkBlue text-white px-4 py-2 rounded-lg shadow-md transition-opacity duration-300"
-        :class="{ 'opacity-0': !isSnackbarVisible, 'opacity-100': isSnackbarVisible }"
-      >
-        {{ snackbarMessage }}
-      </div>
+      <SnackbarComponent ref="snackbar"></SnackbarComponent>
     </div>
   </div>
 </template>

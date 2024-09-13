@@ -160,9 +160,9 @@ function togglePriceOrder() {
 
 const togglePriceOrderName = computed(() => {
   if (priceOrder.value === 'ascending') {
-    return 'Highest to Lowest'
+    return '&darr;'
   } else if (priceOrder.value === 'descending') {
-    return 'Lowest to Highest'
+    return '&uarr;'
   } else {
     return '-'
   }
@@ -183,48 +183,82 @@ function toggleAlphabeticalOrder() {
 
 const toggleAlphabeticalOrderName = computed(() => {
   if (alphabeticalOrder.value === 'AZ') {
-    return 'A-Z'
+    return 'A&rarr;Z'
   } else if (alphabeticalOrder.value === 'ZA') {
-    return 'Z-A'
+    return 'Z&rarr;A'
   } else {
     return '-'
   }
 })
+
+const openFilterModel = () => {
+  showFilterModal.value = true
+}
 </script>
 
 <template>
-  <MainHeader>
-    <button
-      @click="showFilterModal = true"
-      class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+  <MainHeader></MainHeader>
+  <!-- <main class="pt-80 md:pt-64 lg:pt-48 xl:pt-32 mx-7 p-2.5 bg-yellow-300"> -->
+  <main class="pt-56 md:pt-32 lg:pt-24 xl:pt-32 mx-7 p-2.5 bg-yellow-300">
+    <h1 class="header header__main">Our Menu</h1>
+    <div
+      v-if="dishesComputed.length !== 0"
+      class="flex flex-col gap-2 md:flex-row justify-between items-start mb-6"
     >
-      Filters
-    </button>
-  </MainHeader>
-  <section class="mx-7 p-2.5 bg-yellow-300">
-    <h2 class="text-2xl text-center font-bold">Our Menu</h2>
-    <div>
-      <p>Sort Price:</p>
       <button
-        @click="togglePriceOrder"
-        class="bg-green text-white px-4 py-2 rounded hover:bg-green-600"
+        @click="openFilterModel"
+        class="btn btn__help interactions font-normal"
+        title="Filter Dishes"
       >
-        {{ togglePriceOrderName }}
+        Filters
       </button>
-    </div>
-    <div>
-      <p>Sort Alphabetical Order:</p>
-      <button
-        @click="toggleAlphabeticalOrder"
-        class="bg-green text-white px-4 py-2 rounded hover:bg-green-600"
-      >
-        {{ toggleAlphabeticalOrderName }}
-      </button>
+      <div class="flex flex-col gap-2 md:flex-row items-start">
+        <div class="flex items-center">
+          <button
+            @click="togglePriceOrder"
+            class="btn btn__help interactions font-normal"
+            title="Sort dishes by price order"
+          >
+            Price
+            <span v-html="togglePriceOrderName" class="font-bold"></span>
+          </button>
+        </div>
+        <div class="flex items-center">
+          <button
+            @click="toggleAlphabeticalOrder"
+            class="btn btn__help interactions"
+            title="Sort dishes by alphabetical order"
+          >
+            Alphabetical
+            <span v-html="toggleAlphabeticalOrderName" class="font-bold"></span>
+          </button>
+        </div>
+      </div>
     </div>
 
     <ul>
       <MenuList :dishes="dishesComputed" />
     </ul>
-  </section>
+    <div v-if="dishesComputed.length === 0" class="flex flex-col items-center gap-3 mb-8">
+      <p class="text__secondary--medium items-center text-center">
+        Sorry, no dishes match your selected filters.
+      </p>
+      <img
+        src="../components/icons/empty-plate.webp"
+        alt=""
+        class="w-32 mt-3 sm:w-48 md:w-64 lg:w-80 xl:w-96 object-cover mb-4 rounded-full"
+      />
+      <p class="text__secondary--medium items-center text-center">
+        Please adjust your preferences and
+      </p>
+      <button
+        @click="openFilterModel"
+        class="btn btn__secondary px-4 py-2"
+        title="Refine filters and try again"
+      >
+        try again.
+      </button>
+    </div>
+  </main>
   <FiltersModal v-model="showFilterModal" @filters="applyFilters" />
 </template>
