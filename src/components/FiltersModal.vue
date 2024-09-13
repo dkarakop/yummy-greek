@@ -6,9 +6,10 @@ import ModalWindow from './ModalWindow.vue'
 
 const model = defineModel({ default: false })
 
-const filters = reactive({
+const initialFilters = {
   // Dietary Preferences
   vegan: false,
+  vegetarian: false,
   glutenFree: false,
   lactoseFree: false,
   nutFree: false,
@@ -20,6 +21,9 @@ const filters = reactive({
   allergenFree: false,
   //PriceRange
   priceRange: null
+}
+const filters = reactive({
+  ...initialFilters
 })
 
 const priceOptions = [
@@ -35,23 +39,41 @@ const applyFilters = () => {
   emit('filters', { ...filters })
   model.value = false
 }
+
+const resetFilters = () => {
+  emit('filters', {
+    initialFilters
+  })
+  filters.vegan = false
+  filters.vegetarian = false
+  filters.glutenFree = false
+  filters.lactoseFree = false
+  filters.nutFree = false
+  filters.nutsAllergy = false
+  filters.glutenAllergy = false
+  filters.lasctoseAllergy = false
+  filters.otherAllergens = false
+  filters.allergenFree = false
+  filters.priceRange = null
+  model.value = true
+}
 </script>
 
 <template>
   <ModalWindow modalName="Filters" v-model="model">
-    <!-- Modal Body -->
-    <div class="flex gap-6">
+    <div class="flex flex-col gap-6 md:flex-row pop-content w-full">
       <!-- Dietary Preferences Checkbox-->
-      <fieldset class="mt-4 border border-gray-300 p-4 rounded-md grow">
-        <legend class="text-lg font-semibold text-slate-800">Dietary Preferences</legend>
+      <fieldset class="fieldsetEl flex-1 shadow">
+        <legend class="header header__titles">Dietary Preferences</legend>
         <GenericCheckbox label="Vegan" v-model="filters.vegan"></GenericCheckbox>
+        <GenericCheckbox label="Vegetarian" v-model="filters.vegetarian"></GenericCheckbox>
         <GenericCheckbox label="Gluten-Free" v-model="filters.glutenFree"></GenericCheckbox>
         <GenericCheckbox label="Lactose-Free" v-model="filters.lactoseFree"></GenericCheckbox>
         <GenericCheckbox label="Nut-Free" v-model="filters.nutFree"></GenericCheckbox>
       </fieldset>
 
       <!-- Allergens Checkbox-->
-      <fieldset class="mt-4 border border-gray-300 p-4 rounded-md grow">
+      <fieldset class="fieldsetEl flex-1 shadow">
         <legend class="text-lg font-semibold text-slate-800">Allergens</legend>
         <GenericCheckbox label="Contains Nuts" v-model="filters.nutsAllergy"></GenericCheckbox>
         <GenericCheckbox label="Contains Gluten" v-model="filters.glutenAllergy"></GenericCheckbox>
@@ -68,18 +90,24 @@ const applyFilters = () => {
         :options="priceOptions"
         name="priceRange"
         v-model="filters.priceRange"
+        class="fieldsetEl flex-1 shadow"
       ></GenericRadio>
     </div>
-    <!-- Modal Footer -->
-    <div class="mt-6 flex justify-between">
-      <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-        Reset Filters
+
+    <div class="mt-6 flex flex-col md:flex-row md:justify-between">
+      <button
+        class="btn btn__help mt-4 px-8 py-2 text-center shrink-0 md:mr-auto"
+        @click="resetFilters"
+        title="Reset the selected filters"
+      >
+        Reset
       </button>
       <button
+        class="btn btn__secondary btn__secondary--green mt-4 px-8 py-2 w-full text-center md:w-auto"
         @click="applyFilters"
-        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        title="Apply the selected filters"
       >
-        Apply Filters
+        Apply
       </button>
     </div>
   </ModalWindow>
