@@ -1,9 +1,13 @@
 <script setup>
-import DishModal from './DishModal.vue'
 import { ref } from 'vue'
 import { useCartStore } from '../stores/cart.js'
+import BaseSnackbar from './BaseSnackbar.vue'
 import DishAmountButtons from './DishAmountButtons.vue'
-import SnackbarComponent from './SnackbarComponent.vue'
+import DishPopup from './DishPopup.vue'
+
+const cartStore = useCartStore()
+
+//---- Props, Refs & Vars ----//
 
 const props = defineProps({
   dishes: {
@@ -11,13 +15,12 @@ const props = defineProps({
     required: true
   }
 })
-//Refs
-const showDishModal = ref(false)
-const currentDish = ref()
-const snackbar = ref(null) //SnackBar for Add toCart Btn
 
-//Store
-const cartStore = useCartStore()
+const showDishPopup = ref(false)
+const currentDish = ref({})
+const snackbar = ref(null)
+
+//---- Computed, Watchers & Functions ----//
 
 function addDishItem(dish) {
   currentDish.value = dish
@@ -25,17 +28,20 @@ function addDishItem(dish) {
   snackbar.value.showMessage(dish.name + ' has been added to your cart!')
 }
 
-//Dish Modal
-
 function selectDish(dish) {
   currentDish.value = dish
-  showDishModal.value = true
+  showDishPopup.value = true
+}
+
+function resetBtn(dish) {
+  cartStore.resetDishAmount(dish)
+  cartStore.deleteDish(dish)
 }
 </script>
 
 <template>
   <li
-    class="flex flex-col md:flex-row rounded-lg bg-white md:items-center bg-orange-200 p-4 space-y-4 md:space-y-0 md:space-x-4 w-full mb-4 border shadow-md"
+    class="flex flex-col md:flex-row rounded-lg bg-white md:items-center p-4 space-y-4 md:space-y-0 md:space-x-4 w-full mb-4 border shadow-md"
     v-for="dish in props.dishes"
     :key="dish.id"
   >
@@ -47,7 +53,7 @@ function selectDish(dish) {
 
     <div class="flex flex-col md:flex-row justify-between w-full">
       <div class="flex flex-col justify-between items-start h-full w-full md:w-3/6">
-        <h2 class="header header__secondary">{{ dish.name }}</h2>
+        <h2 class="header header--my-0">{{ dish.name }}</h2>
 
         <p class="text__secondary--small mb-0 mt-0 md:mb-2 md:mt-4">
           {{ dish.ingredients.join(', ') }}
@@ -74,7 +80,7 @@ function selectDish(dish) {
         </button>
         <DishAmountButtons v-else :dish="dish" class="mt-4 md:w-auto">
           <button
-            @click="cartStore.resetDishAmount(dish)"
+            @click="resetBtn(dish)"
             class="btn btn__help font-normal"
             title="Reset the selected amount"
           >
@@ -84,6 +90,6 @@ function selectDish(dish) {
       </div>
     </div>
   </li>
-  <DishModal :dish="currentDish" v-model="showDishModal"></DishModal>
-  <SnackbarComponent ref="snackbar"></SnackbarComponent>
+  <DishPopup :dishId="currentDish.id" v-model="showDishPopup"></DishPopup>
+  <BaseSnackbar ref="snackbar"></BaseSnackbar>
 </template>

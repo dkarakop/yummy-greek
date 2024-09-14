@@ -1,93 +1,105 @@
 <script setup>
+import { ref, watch } from 'vue'
 import { useCartStore } from '../stores/cart.js'
-import ModalWindow from '@/components/ModalWindow.vue'
+import { getDish } from '@/modules/api.js'
+import BasePopup from '@/components/BasePopup.vue'
+import BaseSnackbar from './BaseSnackbar.vue'
 import DishAmountButtons from './DishAmountButtons.vue'
-import SnackbarComponent from './SnackbarComponent.vue'
-import { ref } from 'vue'
 
-//Props
-const props = defineProps({
-  dish: { type: Object }
-})
-//Refs
-const snackbar = ref(null) //SnackBar for Add toCart Btn
-//Model
-const model = defineModel({ default: false })
-//Store
 const cartStore = useCartStore()
+
+//---- Props, Refs & Vars ----//
+
+const props = defineProps({
+  dishId: { type: Number }
+})
+
+const model = defineModel({ default: false })
+
+const snackbar = ref(null)
+const dish = ref({})
+
+//---- Computed, Watchers & Functions ----//
+
+watch(
+  () => props.dishId,
+  (id) => {
+    getDish(id).then((response) => {
+      dish.value = response
+    })
+  }
+)
 
 function addDishItem(dish) {
   cartStore.addDish(dish)
   snackbar.value.showMessage(dish.name + ' has been added to your cart!')
 }
+function resetBtn(dish) {
+  cartStore.resetDishAmount(dish)
+  cartStore.deleteDish(dish)
+}
 </script>
 
 <template>
-  <ModalWindow v-model="model">
+  <BasePopup v-model="model" :modalName="dish.name">
     <div class="flex flex-col justify-between w-full gap-3">
-      <!-- Dish Name, tags & price -->
+      <!-- Dish tags & price -->
       <div
-        class="flex flex-col md:flex-row justify-between items-start md:items-center w-full gap-4"
+        class="flex flex-col md:flex-row justify-between items-start md:items-center w-full max-md:mt-2"
       >
-        <div class="flex flex-col gap-2 md:flex-row items-start md:items-center">
-          <!-- Name -->
-          <h2 class="header header__secondary mb-0">{{ props.dish.name }}</h2>
-
-          <!-- Dietary Preferences Tags -->
+        <div class="flex flex-col md:flex-row items-start md:items-center">
+          <!-- Tags: Dietary Preferences -->
           <div
-            v-if="props.dish.tags?.dietaryPreferences.length !== 0"
-            class="flex flex-wrap items-center md:mt-0"
+            v-if="dish.tags?.dietaryPreferences.length !== 0"
+            class="flex flex-wrap items-center"
           >
             <div
-              v-for="(tag, index) in props.dish.tags?.dietaryPreferences"
+              v-for="(tag, index) in dish.tags?.dietaryPreferences"
               :key="tag + '-' + index"
               class="tags tags--dietary"
-              :title="'Dietary Preferences tag: ' + props.dish.tags?.dietaryPreferences[index]"
+              :title="'Dietary Preferences tag: ' + dish.tags?.dietaryPreferences[index]"
             >
               {{ tag }}
             </div>
           </div>
 
-          <!-- Allergens Tags -->
-          <div
-            v-if="props.dish.tags.allergens?.length !== 0"
-            class="flex flex-wrap items-center md:mt-0"
-          >
+          <!-- Tags: Allergens -->
+          <div v-if="dish.tags?.allergens?.length !== 0" class="flex flex-wrap items-center">
             <div
-              v-for="(tag, index) in props.dish.tags.allergens"
+              v-for="(tag, index) in dish.tags?.allergens"
               :key="tag + '-' + index"
               class="tags tags--allergnen"
-              :title="'Allergen tag: ' + props.dish.tags.allergens[index]"
+              :title="'Allergen tag: ' + dish.tags.allergens[index]"
             >
               {{ tag }}
             </div>
           </div>
         </div>
 
-        <!--  Price -->
+        <!-- Price -->
         <p class="text__secondary--medium md:mt-0">
-          {{ '€' + props.dish.price }}
+          {{ '€' + dish.price }}
         </p>
       </div>
 
-      <!--Image, description & ingredients -->
+      <!-- Image, description & ingredients -->
       <div class="flex flex-col md:flex-row gap-4 items-start">
         <img
-          :src="props.dish.image"
-          :alt="'A picture of our delicious dish ' + props.name"
+          :src="dish.image"
+          :alt="'A picture of our delicious dish ' + dish.name"
           class="rounded-lg w-full h-full object-cover flex-1"
         />
         <div class="flex flex-col md:flex-row items-start justify-between w-full gap-4s">
-          <!-- Description  -->
+          <!-- Description -->
           <div>
             <h3 class="text-lg font-semibold text-slate-800">Description</h3>
             <p class="text-base mb-0 mt-0 md:mb-2 max-w-4xl text-left border-b-2 pb-3">
-              {{ props.dish.description }}
+              {{ dish.description }}
             </p>
             <!-- Ingredients -->
             <div class="my-4">
               <h3 class="text-lg font-semibold text-slate-800">Ingredients</h3>
-              <p>{{ props.dish.ingredients.join(', ') }}</p>
+              <p>{{ dish.ingredients?.join(', ') }}</p>
             </div>
             <!-- Buttons Section -->
             <div class="flex flex-col justify-between items-end h-full w-full">
@@ -97,7 +109,7 @@ function addDishItem(dish) {
                 class="mt-4 md:w-auto"
               >
                 <button
-                  @click="cartStore.resetDishAmount(dish)"
+                  @click="resetBtn(dish)"
                   class="btn btn__help font-normal"
                   title="Reset the selected amount"
                 >
@@ -116,6 +128,6 @@ function addDishItem(dish) {
         </div>
       </div>
     </div>
-  </ModalWindow>
-  <SnackbarComponent ref="snackbar"></SnackbarComponent>
+  </BasePopup>
+  <BaseSnackbar ref="snackbar"></BaseSnackbar>
 </template>

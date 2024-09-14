@@ -1,8 +1,10 @@
 <script setup>
-import GenericCheckbox from './GenericCheckbox.vue'
-import GenericRadio from './GenericRadio.vue'
 import { reactive } from 'vue'
-import ModalWindow from './ModalWindow.vue'
+import BasePopup from './BasePopup.vue'
+import BaseCheckbox from './BaseCheckbox.vue'
+import BaseRadio from './BaseRadio.vue'
+
+//---- Computed, Watchers & Functions ----//
 
 const model = defineModel({ default: false })
 
@@ -60,38 +62,35 @@ const resetFilters = () => {
 </script>
 
 <template>
-  <ModalWindow modalName="Filters" v-model="model">
+  <BasePopup modalName="Filters" v-model="model">
     <div class="flex flex-col gap-6 md:flex-row pop-content w-full">
       <!-- Dietary Preferences Checkbox-->
-      <fieldset class="fieldsetEl flex-1 shadow">
-        <legend class="header header__titles">Dietary Preferences</legend>
-        <GenericCheckbox label="Vegan" v-model="filters.vegan"></GenericCheckbox>
-        <GenericCheckbox label="Vegetarian" v-model="filters.vegetarian"></GenericCheckbox>
-        <GenericCheckbox label="Gluten-Free" v-model="filters.glutenFree"></GenericCheckbox>
-        <GenericCheckbox label="Lactose-Free" v-model="filters.lactoseFree"></GenericCheckbox>
-        <GenericCheckbox label="Nut-Free" v-model="filters.nutFree"></GenericCheckbox>
+      <fieldset class="fieldsetEl mt-4 flex-1 shadow">
+        <legend class="text-lg font-semibold text-slate-800">Dietary Preferences</legend>
+        <BaseCheckbox label="Vegan" v-model="filters.vegan"></BaseCheckbox>
+        <BaseCheckbox label="Vegetarian" v-model="filters.vegetarian"></BaseCheckbox>
+        <BaseCheckbox label="Gluten-Free" v-model="filters.glutenFree"></BaseCheckbox>
+        <BaseCheckbox label="Lactose-Free" v-model="filters.lactoseFree"></BaseCheckbox>
+        <BaseCheckbox label="Nut-Free" v-model="filters.nutFree"></BaseCheckbox>
       </fieldset>
 
       <!-- Allergens Checkbox-->
-      <fieldset class="fieldsetEl flex-1 shadow">
+      <fieldset class="fieldsetEl mt-4 flex-1 shadow">
         <legend class="text-lg font-semibold text-slate-800">Allergens</legend>
-        <GenericCheckbox label="Contains Nuts" v-model="filters.nutsAllergy"></GenericCheckbox>
-        <GenericCheckbox label="Contains Gluten" v-model="filters.glutenAllergy"></GenericCheckbox>
-        <GenericCheckbox
-          label="Contains Lactose"
-          v-model="filters.lasctoseAllergy"
-        ></GenericCheckbox>
-        <GenericCheckbox label="Other Allergens" v-model="filters.otherAllergens"></GenericCheckbox>
-        <GenericCheckbox label="Allergen-Free" v-model="filters.allergenFree"></GenericCheckbox>
+        <BaseCheckbox label="Contains Nuts" v-model="filters.nutsAllergy"></BaseCheckbox>
+        <BaseCheckbox label="Contains Gluten" v-model="filters.glutenAllergy"></BaseCheckbox>
+        <BaseCheckbox label="Contains Lactose" v-model="filters.lasctoseAllergy"></BaseCheckbox>
+        <BaseCheckbox label="Other Allergens" v-model="filters.otherAllergens"></BaseCheckbox>
+        <BaseCheckbox label="Allergen-Free" v-model="filters.allergenFree"></BaseCheckbox>
       </fieldset>
 
       <!-- Price Range -->
-      <GenericRadio
+      <BaseRadio
         :options="priceOptions"
         name="priceRange"
         v-model="filters.priceRange"
-        class="fieldsetEl flex-1 shadow"
-      ></GenericRadio>
+        class="fieldsetEl mt-4 flex-1 shadow"
+      ></BaseRadio>
     </div>
 
     <div class="mt-6 flex flex-col md:flex-row md:justify-between">
@@ -110,5 +109,5 @@ const resetFilters = () => {
         Apply
       </button>
     </div>
-  </ModalWindow>
+  </BasePopup>
 </template>
