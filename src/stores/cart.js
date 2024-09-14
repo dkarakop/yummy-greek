@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 
 export const useCartStore = defineStore('cart', () => {
   const cart = ref(new Map())
+  const isCartVisible = ref(true)
 
   const totalAmountDishes = computed(() => {
     let total = 0
@@ -15,9 +16,9 @@ export const useCartStore = defineStore('cart', () => {
   const totalPrice = computed(() => {
     let total = 0
     cart.value.forEach((cartItem) => {
-      total += cartItem.item.price * cartItem.amount
+      total += cartItem.data.price * cartItem.amount
     })
-    return total
+    return total.toFixed(2)
   })
 
   function addDish(dish) {
@@ -26,7 +27,7 @@ export const useCartStore = defineStore('cart', () => {
       cartItem.amount++
     } else {
       cartItem = new CartItem()
-      cartItem.item = dish
+      cartItem.data = dish
       cart.value.set(dish.id, cartItem)
     }
   }
@@ -41,18 +42,49 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
+  function deleteDish(dish) {
+    cart.value.delete(dish.id)
+  }
+
+  function getDishAmount(dish) {
+    let cartItem = cart.value.get(dish.id)
+    if (cartItem) {
+      return cartItem.amount
+    } else {
+      return 0
+    }
+  }
+
+  function resetDishAmount(dish) {
+    let cartItem = cart.value.get(dish.id)
+    if (cartItem) {
+      return (cartItem.amount = 0)
+    } else {
+      return 0
+    }
+  }
+
+  function clearCart() {
+    cart.value = new Map()
+  }
+
   return {
     cart,
+    isCartVisible,
     totalAmountDishes,
     totalPrice,
     addDish,
-    removeDish
+    removeDish,
+    getDishAmount,
+    deleteDish,
+    resetDishAmount,
+    clearCart
   }
 })
 
 class CartItem {
   constructor() {
-    this.item = null
+    this.data = {}
     this.amount = 1
   }
 }
