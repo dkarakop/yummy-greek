@@ -15,6 +15,10 @@ const model = defineModel({ default: false })
 const setRating = (value) => {
   rating.value = value
 }
+
+function pay() {
+  cartStore.clearCart()
+}
 </script>
 
 <template>
@@ -97,7 +101,9 @@ const setRating = (value) => {
         We look forward to serving you again!
       </p>
       <div class="flex justify-center mt-2">
-        <RouterLink to="/" class="btn btn__green">Pay €{{ cartStore.totalPrice }}</RouterLink>
+        <RouterLink to="/" class="btn btn__green" @click="pay"
+          >Pay €{{ cartStore.totalPrice }}</RouterLink
+        >
       </div>
     </div>
   </BasePopup>
