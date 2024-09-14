@@ -21,6 +21,7 @@ const dish = ref({})
 
 //---- Computed, Watchers & Functions ----//
 
+// Watch for dishId changes and update the dish data
 watch(
   () => props.dishId,
   (id) => {
@@ -41,9 +42,9 @@ function resetBtn(dish) {
 </script>
 
 <template>
-  <BasePopup v-model="model" :modalName="dish.name">
+  <BasePopup v-model="model" :popupName="dish.name">
     <div class="flex flex-col justify-between w-full gap-3">
-      <!-- Dish tags & price -->
+      <!-- Dish: tags & price -->
       <div
         class="flex flex-col md:flex-row justify-between items-start md:items-center w-full max-md:mt-2"
       >
@@ -77,13 +78,14 @@ function resetBtn(dish) {
         </div>
 
         <!-- Price -->
-        <p class="text__secondary--medium md:mt-0">
+        <p class="text font-semibold">
           {{ '€' + dish.price }}
         </p>
       </div>
 
-      <!-- Image, description & ingredients -->
+      <!-- Dish: image, description, ingredients & amount buttons (toggle between AddToCart and DishAmountButtons) -->
       <div class="flex flex-col md:flex-row gap-4 items-start">
+        <!-- Image -->
         <img
           :src="dish.image"
           :alt="'A picture of our delicious dish ' + dish.name"
@@ -92,35 +94,36 @@ function resetBtn(dish) {
         <div class="flex flex-col md:flex-row items-start justify-between w-full gap-4s">
           <!-- Description -->
           <div>
-            <h3 class="text-lg font-semibold text-slate-800">Description</h3>
-            <p class="text-base mb-0 mt-0 md:mb-2 max-w-4xl text-left border-b-2 pb-3">
+            <h3 class="header__small">Description</h3>
+            <p class="mb-0 mt-0 md:mb-2 max-w-4xl text-left border-b-2 pb-3">
               {{ dish.description }}
             </p>
+
             <!-- Ingredients -->
             <div class="my-4">
-              <h3 class="text-lg font-semibold text-slate-800">Ingredients</h3>
+              <h3 class="header__small">Ingredients</h3>
               <p>{{ dish.ingredients?.join(', ') }}</p>
             </div>
-            <!-- Buttons Section -->
+
+            <!-- Amount buttons -->
             <div class="flex flex-col justify-between items-end h-full w-full">
+              <!-- DishAmountButtons: appears when AddToCart is clicked. Includes buttons to add/remove a dish and a Reset button -->
               <DishAmountButtons
                 :dish="dish"
                 v-if="cartStore.getDishAmount(dish) !== 0"
                 class="mt-4 md:w-auto"
               >
+                <!-- Reset button: sets the selected dish amount to zero and disappears along with the DishAmountButtons -->
                 <button
                   @click="resetBtn(dish)"
-                  class="btn btn__help font-normal"
+                  class="btn btn--secondary btn--small"
                   title="Reset the selected amount"
                 >
                   Reset
                 </button>
               </DishAmountButtons>
-              <button
-                v-else
-                class="btn btn__secondary btn__secondary--green min-w-48 px-8 py-2 w-full text-center md:w-auto"
-                @click="addDishItem(dish)"
-              >
+              <!-- AddToCart button: adds one dish to the cart and then disappears -->
+              <button v-else class="btn btn--primary" @click="addDishItem(dish)">
                 Add to Cart
               </button>
             </div>
@@ -129,5 +132,6 @@ function resetBtn(dish) {
       </div>
     </div>
   </BasePopup>
+  <!-- Snackbar: displays a message when the dish amount is increased or decreased. -->
   <BaseSnackbar ref="snackbar"></BaseSnackbar>
 </template>

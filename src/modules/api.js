@@ -1,9 +1,9 @@
 const apiUrl = 'http://localhost:3000'
 
 /**
- * Getting the "Dishes" array from our database.
- * @param none
- * @returns a Promise
+ * Fetches the array of dishes from the database.
+ * Adds processessTags object at each dish  before returning the array
+ * @returns {Promise} A Promise that resolves with the array of dishes
  */
 export function getDishes() {
   return fetch(`${apiUrl}/dishes`)
@@ -14,6 +14,26 @@ export function getDishes() {
     })
 }
 
+/**
+ * Fetches a dish by its ID from the API
+ * Adds processessTags object at the specific dish and returns the dish data
+ * @param {number} id - The ID of the dish to fetch
+ * @returns {Promise} A Promise that resolves with the dish data.
+ */
+export function getDish(id) {
+  return fetch(`${apiUrl}/dishes/${id}`)
+    .then((response) => response.json())
+    .then((dish) => {
+      processTags(dish)
+      return dish
+    })
+}
+
+/*
+ * Processes the tags for a given dish and adds a processedTags object to the dish
+ * The processedTags object contains boolean values indicating dietary preferences and allergens
+ * @param {Object} dish - The dish object with tags to be processed
+ */
 function processTags(dish) {
   const processedTags = {
     vegan: false,

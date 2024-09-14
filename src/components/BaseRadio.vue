@@ -16,8 +16,8 @@ function selectedOption(e) {
 </script>
 
 <template>
-  <fieldset class="fieldsetEl mt-4">
-    <legend class="text-lg font-semibold text-slate-800">Price Range</legend>
+  <fieldset class="fieldset mt-4">
+    <legend class="header__small">Price Range</legend>
     <div v-for="(option, index) in props.options" :key="index">
       <input
         type="radio"

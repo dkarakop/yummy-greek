@@ -45,22 +45,25 @@ function resetBtn(dish) {
     v-for="dish in props.dishes"
     :key="dish.id"
   >
+    <!-- Dish: image -->
     <img
       :src="dish.image"
       :alt="'An image of our delicious dish' + dish.name"
       class="rounded-lg w-full md:w-1/4"
     />
 
+    <!-- Dish: name, ingredients and details btn -->
     <div class="flex flex-col md:flex-row justify-between w-full">
       <div class="flex flex-col justify-between items-start h-full w-full md:w-3/6">
+        <!-- Name -->
         <h2 class="header header--my-0">{{ dish.name }}</h2>
-
-        <p class="text__secondary--small mb-0 mt-0 md:mb-2 md:mt-4">
+        <!-- Ingredients -->
+        <p class="text mb-0 mt-0 md:mb-2 md:mt-4">
           {{ dish.ingredients.join(', ') }}
         </p>
-
+        <!-- Details btn: opens DishPopup -->
         <button
-          class="btn btn__info mt-2"
+          class="btn btn--secondary btn--small mt-2"
           @click="selectDish(dish)"
           title="See more details about this dish"
         >
@@ -68,20 +71,27 @@ function resetBtn(dish) {
         </button>
       </div>
 
+      <!-- Dish: price & amount buttons (toggle between AddToCart and DishAmountButtons) -->
       <div class="flex flex-col justify-between items-end h-full w-full md:w-2/6">
-        <p class="text__secondary--large">€ {{ dish.price }}</p>
+        <!-- Price -->
+        <p class="text--large">€ {{ dish.price }}</p>
+
+        <!-- AddToCart button: adds one dish to the cart and then disappears -->
         <button
           v-if="cartStore.getDishAmount(dish) === 0"
-          class="btn btn__secondary btn__secondary--green mt-4 px-8 py-2 w-full text-center md:w-auto"
+          class="btn btn--primary mt-4 w-full md:w-auto"
           @click="addDishItem(dish)"
           title="Add this dish to your cart"
         >
           Add to Cart
         </button>
+
+        <!-- DishAmountButtons: appears when AddToCart is clicked. Includes buttons to add/remove a dish and a Reset button -->
         <DishAmountButtons v-else :dish="dish" class="mt-4 md:w-auto">
+          <!-- Reset button: sets the selected dish amount to zero and disappears along with the DishAmountButtons -->
           <button
             @click="resetBtn(dish)"
-            class="btn btn__help font-normal"
+            class="btn btn--secondary btn--small"
             title="Reset the selected amount"
           >
             Reset
@@ -90,6 +100,8 @@ function resetBtn(dish) {
       </div>
     </div>
   </li>
+  <!-- Snackbar: displays a message when the dish amount is increased or decreased. -->
+
   <DishPopup :dishId="currentDish.id" v-model="showDishPopup"></DishPopup>
   <BaseSnackbar ref="snackbar"></BaseSnackbar>
 </template>

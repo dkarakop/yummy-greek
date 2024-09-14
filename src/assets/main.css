@@ -1,56 +1,157 @@
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=RocknRoll+One&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Import fonts */
-@import url('https://fonts.googleapis.com/css2?family=Belgrano&family=Lilita+One&display=swap');
 
 * {
   margin: 0;
   padding: 0;
 }
 
+body {
+  font-family: 'Noto Sans', sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  @apply text-darkBlue;
+}
+
+/* ------------------ Main ------------------ */
+
+.main {
+  @apply pt-24 md:pt-24 lg:pt-24 xl:pt-28 mx-7;
+}
+
+.main--centered {
+  @apply flex flex-col items-center;
+}
+
+.main__homeview {
+  @apply bg-darkBlue rounded-lg m-3;
+}
+
+/* ------------------ Fieldset ------------------ */
+.fieldset {
+  @apply border border-gray-300 p-4 rounded-md grow;
+}
+
+/* ------------------ Popup ------------------ */
+.overlay {
+  @apply fixed inset-0 z-50 flex items-center justify-center bg-grey bg-opacity-75;
+}
+.popup {
+  @apply bg-white rounded-lg shadow-lg p-6 relative w-10/12 overflow-y-auto max-h-[90vh];
+}
+
 /* ------------------ Headers ------------------ */
 
-.main-header {
-  font-family: 'Lilita One', system-ui;
-  font-weight: bold;
+.header {
+  font-family: 'RocknRoll One', sans-serif;
+  font-weight: 400;
   font-style: normal;
-  @apply mt-12 text-3xl sm:text-4xl md:text-6xl lg:text-8xl xl:text-9xl leading-none tracking-tight text-yellow mb-8;
+  @apply pb-2 mt-4 mb-4 leading-none tracking-tight text-2xl sm:text-3xl md:text-4xl;
+}
+
+.header--medium-emphasis {
+  @apply opacity-75;
+}
+
+.header--my-0 {
+  @apply my-0;
+}
+
+.header__small {
+  @apply text-lg font-semibold text-slate-800;
+}
+
+/* ------------------ Titles ------------------ */
+.title {
+  font-family: 'RocknRoll One', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  @apply tracking-tight text-3xl leading-none text-yellow;
+}
+
+.title--lg {
+  @apply text-2xl sm:text-3xl md:text-5xl lg:text-7xl xl:text-8xl;
+}
+
+.title--xl {
+  @apply text-3xl sm:text-4xl md:text-6xl lg:text-8xl xl:text-9xl;
+}
+
+.title--dark {
+  @apply text-darkBlue;
 }
 
 /* ------------------ Text ------------------ */
 .text {
-  font-family: 'Lilita One', system-ui;
+  @apply text-base lg:text-lg xl:text-xl;
 }
 
-.text__secondary--medium {
-  @apply text-lightGrey  text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl;
+.text--large {
+  @apply text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl mb-2;
 }
-.text__secondary--large {
-  @apply text-base  sm:text-lg md:text-xl lg:text-2xl xl:text-3xl mb-2;
+
+.tags {
+  @apply text-sm  text-center rounded-lg text-center px-2 py-1 m-0.5;
+}
+
+.tags--dietary {
+  @apply bg-lightGreen;
+}
+
+.tags--allergnen {
+  @apply bg-darkOrange text-white;
 }
 
 /* ------------------ Buttons ------------------ */
 
 .btn {
-  font-family: 'Lilita One', system-ui;
-  font-style: normal;
-  @apply font-bold text-base text-center rounded-lg text-center shadow-2xl;
+  font-family: 'Noto Sans', sans-serif;
+  font-weight: 400;
+  @apply text-base text-center rounded-lg text-center shadow-md text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl;
 }
 
-.btn__primary {
-  @apply px-10 py-5 m-3 bg-green text-lightGrey mb-20 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl;
+.btn--primary {
+  @apply px-8 py-2 bg-green text-white hover:bg-lightGreen hover:text-darkBlue hover:underline hover:decoration-solid hover:ring-2 hover:ring-darkBlue focus:ring-2 focus:outline-none focus:ring-darkBlue focus:underline focus:decoration-solid;
 }
 
-.btn__primary--interactions {
-  @apply hover:bg-lightGreen hover:text-black hover:underline hover:decoration-solid hover:ring-4 hover:ring-yellow focus:ring-4 focus:outline-none focus:ring-yellow focus:underline focus:decoration-solid;
+.btn--secondary {
+  @apply px-4 py-2 bg-lightYellow text-darkBlue hover:bg-darkYellow hover:underline hover:decoration-solid hover:ring-2 hover:ring-darkBlue focus:ring-2 focus:outline-none focus:ring-darkBlue focus:underline focus:decoration-solid;
 }
 
-.btn__cart {
-  @apply px-4 py-2 bg-lightGreen text-darkBlue font-bold md:px-6 md:py-3;
+.btn--big {
+  @apply px-10 py-5 m-3 mb-20 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl hover:text-black hover:ring-4 hover:ring-yellow focus:ring-4 focus:ring-yellow;
 }
 
-.btn__cart--interactions {
-  @apply hover:bg-green hover:text-white hover:underline hover:decoration-solid hover:ring-2 hover:ring-yellow focus:ring-2 focus:outline-none focus:ring-yellow focus:underline focus:decoration-solid;
+.btn--small {
+  @apply px-4 py-1 sm:text-sm md:text-base lg:text-lg xl:text-xl;
+}
+
+.btn--light-focus {
+  @apply hover:ring-white focus:ring-white;
+}
+
+.btn__exit {
+  @apply text-9xl text-grey text hover:text-darkBlue  hover:text-darkBlue hover:underline hover:decoration-solid hover:ring-2 hover:ring-darkBlue  focus:ring-2 focus:outline-none focus:ring-darkBlue focus:underline focus:decoration-solid rounded-lg px-3 py-2;
+}
+
+/* ------------------ Images ------------------ */
+.image {
+  @apply w-32 mt-3 sm:w-48 md:w-64 lg:w-80 xl:w-96 object-cover mb-4 rounded-full;
+}
+
+.icon__logo {
+  @apply w-32 mt-3 sm:w-48 md:w-64 lg:w-80 xl:w-96 object-cover mb-4;
+}
+
+.icon__award {
+  @apply rounded-full border-4 border-lightGrey w-16 sm:w-16 md:w-20 lg:w-24 xl:w-28 object-cover;
+}
+
+/* ------------------ Other ------------------ */
+.badge {
+  @apply absolute -top-3 -right-4 bg-white rounded-full p-3 py-1 text-base text-black no-underline bg-yellow shadow-lg;
 }
