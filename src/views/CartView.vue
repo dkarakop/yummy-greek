@@ -79,7 +79,7 @@ cartStore.isCartVisible = false
       >
       <!-- Finish Order button: navigates the user to the confirmation page to review order details -->
       <RouterLink to="/confirmation" class="btn btn--primary" title="Review your order details">
-        Finish your Order &rsaquo;</RouterLink
+        Finish order &rsaquo;</RouterLink
       >
     </div>
 
@@ -97,7 +97,7 @@ cartStore.isCartVisible = false
         Go back to our menu and explore our delicious dishes!
       </p>
       <!-- Menu button: navigates the user back to the Menu page -->
-      <RouterLink to="/menu" class="btn btn--primary" title="Return to the menu"> Menu</RouterLink>
+      <RouterLink to="/menu" class="btn btn--primary" title="Return to the menu">Menu</RouterLink>
     </div>
   </main>
 </template>
