@@ -41,7 +41,7 @@ body {
   @apply fixed inset-0 z-50 flex items-center justify-center bg-grey bg-opacity-75;
 }
 .popup {
-  @apply bg-white rounded-lg shadow-lg p-6 relative w-10/12 overflow-y-auto max-h-[90vh];
+  @apply bg-white rounded-lg shadow-lg p-6 relative w-10/12 overflow-y-auto max-h-[80vh];
 }
 
 /* ------------------ Headers ------------------ */
@@ -50,7 +50,7 @@ body {
   font-family: 'RocknRoll One', sans-serif;
   font-weight: 400;
   font-style: normal;
-  @apply pb-2 mt-4 mb-4 leading-none tracking-tight text-2xl sm:text-3xl md:text-4xl;
+  @apply pb-2 mt-4 mb-4 leading-none tracking-tight text-2xl sm:text-3xl md:text-3xl;
 }
 
 .header--medium-emphasis {

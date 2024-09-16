@@ -40,25 +40,26 @@ cartStore.isCartVisible = false
             </div>
 
             <!-- DishAmountButtons: add/remove a dish and Delete button -->
-            <DishAmountButtons :dish="item.data" class="md:w-2/6">
+            <DishAmountButtons :dish="item.data" class="md:auto items-end">
               <!-- Dish: price -->
               <p class="md:mt-0">
                 {{ '€' + item.data.price }}
               </p>
-              <!-- Delete button: removes the specific dish from the order -->
+
+              <!-- Delete button with background image -->
               <button
-                class="btn btn--secondary btn--small"
+                class="btn btn--secondary btn--small flex items-center justify-center bg-[url('../assets/delete.svg')] bg-no-repeat bg-center bg-contain w-10 h-10 md:w-12 md:h-12"
                 @click="cartStore.deleteDish(item.data)"
                 :title="'Delete ' + item.data.name + ' from your cart'"
               >
-                Delete
-              </button></DishAmountButtons
-            >
+                <!-- No <img> tag needed, the background image is applied directly to the button -->
+              </button>
+            </DishAmountButtons>
           </li>
         </ul>
 
         <!-- Final amount and price of order -->
-        <div class="flex flex-col items-end">
+        <div class="flex flex-col">
           <p class="text text-right mb-2 mt-4">
             Total Amount: <span class="font-bold">{{ cartStore.totalAmountDishes }}</span>
             <br />
@@ -79,7 +80,7 @@ cartStore.isCartVisible = false
       >
       <!-- Finish Order button: navigates the user to the confirmation page to review order details -->
       <RouterLink to="/confirmation" class="btn btn--primary" title="Review your order details">
-        Finish order &rsaquo;</RouterLink
+        Finish Order &rsaquo;</RouterLink
       >
     </div>
 

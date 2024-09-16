@@ -41,7 +41,7 @@ function resetBtn(dish) {
 
 <template>
   <li
-    class="flex flex-col md:flex-row rounded-lg bg-white md:items-center p-4 space-y-4 md:space-y-0 md:space-x-4 w-full mb-4 border shadow-md"
+    class="flex flex-col md:flex-row rounded-lg bg-white w-full md:items-center p-4 space-y-4 md:space-y-0 md:space-x-4 w-full mb-4 border shadow-md"
     v-for="dish in props.dishes"
     :key="dish.id"
   >
@@ -54,7 +54,7 @@ function resetBtn(dish) {
 
     <!-- Dish: name, ingredients and details btn -->
     <div class="flex flex-col md:flex-row justify-between w-full">
-      <div class="flex flex-col justify-between items-start h-full w-full md:w-3/6">
+      <div class="flex flex-col justify-between items-start h-full w-full md:auto">
         <!-- Name -->
         <h2 class="header header--my-0">{{ dish.name }}</h2>
         <!-- Ingredients -->
@@ -72,14 +72,14 @@ function resetBtn(dish) {
       </div>
 
       <!-- Dish: price & amount buttons (toggle between AddToCart and DishAmountButtons) -->
-      <div class="flex flex-col justify-between items-end h-full w-full md:w-2/6">
+      <div class="flex flex-col justify-between items-end h-full w-full gap-4">
         <!-- Price -->
         <p class="text--large">€ {{ dish.price }}</p>
 
         <!-- AddToCart button: adds one dish to the cart and then disappears -->
         <button
           v-if="cartStore.getDishAmount(dish) === 0"
-          class="btn btn--primary mt-4 w-full md:w-auto"
+          class="btn btn--primary w-full md:w-auto"
           @click="addDishItem(dish)"
           title="Add this dish to your cart"
         >

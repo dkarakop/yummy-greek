@@ -20,7 +20,7 @@ const model = defineModel({ default: false })
       >
         <!-- Dish: name -->
         <div class="flex w-full">
-          <p class="header mb-0">{{ item.data.name }}</p>
+          <p class="header header--medium-emphasis mb-0">{{ item.data.name }}</p>
         </div>
 
         <!-- Dish: price and total amount of this dish -->
