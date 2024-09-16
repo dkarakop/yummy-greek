@@ -2,7 +2,6 @@
 import { ref, watch } from 'vue'
 import { useCartStore } from '../stores/cart.js'
 import { getDish } from '@/modules/api.js'
-import resetBtnIcon from '@/assets/reset.svg'
 import BasePopup from '@/components/BasePopup.vue'
 import BaseSnackbar from './BaseSnackbar.vue'
 import DishAmountButtons from './DishAmountButtons.vue'
@@ -116,11 +115,7 @@ function resetBtn(dish) {
                 <!-- Reset button: sets the selected dish amount to zero and disappears along with the DishAmountButtons -->
                 <button
                   @click="resetBtn(dish)"
-                  :class="[
-                    'btn btn--secondary btn--small flex items-center justify-center bg-no-repeat bg-center bg-contain w-10 h-10 md:w-12 md:h-12',
-                    { 'bg-[length:20px_20px]': true }
-                  ]"
-                  :style="{ backgroundImage: `url(${resetBtnIcon})` }"
+                  class="btn btn--secondary btn--small flex items-center justify-center bg-[url('reset.svg')] bg-[length:22px_22px] bg-no-repeat bg-center bg-contain w-10 h-10 md:w-12 md:h-12"
                   title="Reset the selected amount"
                 ></button>
               </DishAmountButtons>

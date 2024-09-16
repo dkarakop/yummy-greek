@@ -101,7 +101,7 @@ const resetFilters = () => {
     <!-- Reset button: resets the selected filters to their default state -->
     <div class="mt-6 flex flex-col md:flex-row md:justify-between">
       <button
-        class="btn btn--secondary btn--small mt-4 flex items-center justify-center bg-[url('../assets/reset.svg')] bg-no-repeat bg-center bg-contain w-10 h-10 md:w-12 md:h-12"
+        class="btn btn--secondary btn--small mt-4 flex items-center justify-center bg-[url('reset.svg')] bg-[length:22px_22px] bg-no-repeat bg-center bg-contain w-10 h-10 md:w-12 md:h-12"
         @click="resetFilters"
         title="Reset the selected filters"
       ></button>
