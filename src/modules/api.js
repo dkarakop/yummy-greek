@@ -29,35 +29,68 @@ export function getDish(id) {
     })
 }
 
-/*
- * Processes the tags for a given dish and adds a processedTags object to the dish
- * The processedTags object contains boolean values indicating dietary preferences and allergens
- * @param {Object} dish - The dish object with tags to be processed
+/**
+ * Processes dietary preferences and allergens for a given dish and
+ * adds a `processedTags` object to the dish object.
+ * @param {Object} dish - The dish object that contains tags for dietary preferences and allergens.
+ * @property {Object} dish.tags - Object containing tags related to dietary preferences and allergens.
  */
 function processTags(dish) {
   const processedTags = {
-    vegan: false,
-    vegetarian: false,
-    gluten: false,
-    lactose: false,
-    nuts: false,
-    other: false,
-    allergenFree: false
+    processedDietPref: {
+      vegan: false,
+      vegetarian: false,
+      glutenFree: false,
+      lactoseFree: false,
+      nutsFree: false
+    },
+    processedAllergens: {
+      containsNuts: false,
+      containsGluten: false,
+      containsLactose: false,
+      other: false,
+      allergenFree: false
+    },
+    names: {
+      vegan: 'vegan',
+      vegetarian: 'vegeterian',
+      glutenFree: 'gluten-free',
+      lactoseFree: 'lactose-free',
+      nutsFree: 'nuts-free',
+      containsNuts: 'contains-nuts',
+      containsGluten: 'contains-gluten',
+      containsLactose: 'contains-lactose',
+      other: 'other allergens ',
+      allergenFree: 'allergen-free'
+    }
   }
 
-  const allTags = dish.tags.dietaryPreferences.concat(dish.tags.allergens)
+  let allTags = []
 
-  processedTags.vegan = allTags.includes('vegan')
-  processedTags.vegetarian = allTags.includes('vegetarian')
-  processedTags.gluten = !allTags.includes('gluten-free')
-  processedTags.lactose = !allTags.includes('lactose-free')
-  processedTags.nuts = allTags.includes('contains-nuts')
+  //Check if dish.tags is an array
+  if (Array.isArray(dish.tags)) {
+    allTags = dish.tags
+  } else {
+    allTags = dish.tags.dietaryPreferences.concat(dish.tags.allergens)
+  }
 
-  processedTags.allergenFree =
+  // processedDietPref: Boolean values indicating specific dietary preferences such as vegan, vegetarian, gluten-free, etc.
+  processedTags.processedDietPref.vegan = allTags.includes('vegan')
+  processedTags.processedDietPref.vegetarian = allTags.includes('vegetarian')
+  processedTags.processedDietPref.glutenFree =
+    allTags.includes('gluten-free') && !allTags.includes('contains-gluten')
+  processedTags.processedDietPref.lactoseFree = allTags.includes('lactose-free')
+  processedTags.processedDietPref.nutsFree = !allTags.includes('contains-nuts')
+
+  // processedAllergens`: Boolean values identifying the presence of common allergens like nuts, gluten, lactose, and others.
+  processedTags.processedAllergens.containsNuts = allTags.includes('contains-nuts')
+  processedTags.processedAllergens.containsGluten =
+    allTags.includes('contains-gluten') || !allTags.includes('gluten-free')
+  processedTags.processedAllergens.containsLactose = !allTags.includes('lactose-free')
+  processedTags.processedAllergens.containsAllergens =
     !allTags.includes('contains-nuts') &&
     allTags.includes('lactose-free') &&
     allTags.includes('gluten-free')
-
   allTags.forEach((tag) => {
     const tags = [
       'vegan',
@@ -68,9 +101,10 @@ function processTags(dish) {
       'gluten-free'
     ]
     if (!tags.includes(tag)) {
-      processedTags.other = true
+      processedTags.processedAllergens.other = true
     }
   })
 
+  // Add processedTags object to dish
   dish.processedTags = processedTags
 }

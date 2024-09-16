@@ -2,6 +2,7 @@
 import { ref, watch } from 'vue'
 import { useCartStore } from '../stores/cart.js'
 import { getDish } from '@/modules/api.js'
+import resetBtnIcon from '@/assets/reset.svg'
 import BasePopup from '@/components/BasePopup.vue'
 import BaseSnackbar from './BaseSnackbar.vue'
 import DishAmountButtons from './DishAmountButtons.vue'
@@ -50,30 +51,33 @@ function resetBtn(dish) {
       >
         <div class="flex flex-col md:flex-row items-start md:items-center">
           <!-- Tags: Dietary Preferences -->
-          <div
-            v-if="dish.tags?.dietaryPreferences.length !== 0"
-            class="flex flex-wrap items-center"
-          >
-            <div
-              v-for="(tag, index) in dish.tags?.dietaryPreferences"
+          <div class="flex flex-wrap items-center">
+            <template
+              v-for="(tag, index) in dish.processedTags.processedDietPref"
               :key="tag + '-' + index"
-              class="tags tags--dietary"
-              :title="'Dietary Preferences tag: ' + dish.tags?.dietaryPreferences[index]"
-            >
-              {{ tag }}
-            </div>
+              ><div
+                v-if="tag"
+                class="tags tags--dietary"
+                :title="'Dietary Preferences tag of ' + dish.processedTags.processedDietPref"
+              >
+                {{ dish.processedTags.names[index] }}
+              </div>
+            </template>
           </div>
-
           <!-- Tags: Allergens -->
-          <div v-if="dish.tags?.allergens?.length !== 0" class="flex flex-wrap items-center">
-            <div
-              v-for="(tag, index) in dish.tags?.allergens"
+          <div class="flex flex-wrap items-center">
+            <template
+              v-for="(tag, index) in dish.processedTags.processedAllergens"
               :key="tag + '-' + index"
-              class="tags tags--allergnen"
-              :title="'Allergen tag: ' + dish.tags.allergens[index]"
             >
-              {{ tag }}
-            </div>
+              <div
+                v-if="tag"
+                class="tags tags--allergnen"
+                :title="'Allergen tag: ' + dish.processedTags.processedAllergens"
+              >
+                {{ dish.processedTags.names[index] }}
+              </div>
+            </template>
           </div>
         </div>
 
@@ -117,10 +121,15 @@ function resetBtn(dish) {
                 <!-- Reset button: sets the selected dish amount to zero and disappears along with the DishAmountButtons -->
                 <button
                   @click="resetBtn(dish)"
-                  class="btn btn--secondary btn--small flex items-center justify-center bg-[url('../assets/reset.svg')] bg-no-repeat bg-center bg-contain w-10 h-10 md:w-12 md:h-12"
+                  :class="[
+                    'btn btn--secondary btn--small flex items-center justify-center bg-no-repeat bg-center bg-contain w-10 h-10 md:w-12 md:h-12',
+                    { 'bg-[length:20px_20px]': true }
+                  ]"
+                  :style="{ backgroundImage: `url(${resetBtnIcon})` }"
                   title="Reset the selected amount"
                 ></button>
               </DishAmountButtons>
+
               <!-- AddToCart button: adds one dish to the cart and then disappears -->
               <button v-else class="btn btn--primary" @click="addDishItem(dish)">
                 Add to Cart
