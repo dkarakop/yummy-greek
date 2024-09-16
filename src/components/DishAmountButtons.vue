@@ -28,8 +28,9 @@ function removeDish() {
   <div class="flex flex-col md:flex-row w-full md:w-auto items-start md:items-center gap-4">
     <slot></slot>
 
+    <!------ DishAmmountButtons content ------>
     <div class="flex justify-between items-center w-full">
-      <!-- Decrease btn:decreases the amount of selected dish by 1  -->
+      <!-- Decrease button: decreases the amount of selected dish by 1  -->
       <button
         class="btn btn--primary min-w-12 min-h-12 hover:no-underline focus:hover:no-underline"
         @click="removeDish"
@@ -38,13 +39,15 @@ function removeDish() {
         -
       </button>
 
+      <!-- Displays the current amount of the selected dish -->
       <p
         class="bg-white rounded-lg px-4 py-2 text-center w-auto h-auto m-1"
         title="Desired dish amount"
       >
         {{ cartStore.getDishAmount(props.dish) }}
       </p>
-      <!-- Increase btn:increases the amount of selected dish by 1  -->
+
+      <!-- Increase button: increases the amount of selected dish by 1  -->
       <button
         class="btn btn--primary min-w-12 min-h-12 hover:no-underline focus:hover:no-underline"
         @click="addDish"
@@ -53,7 +56,8 @@ function removeDish() {
         +
       </button>
     </div>
+
+    <!-- Snackbar: displays a message when the dish amount is increased or decreased. -->
+    <BaseSnackbar ref="snackbar"></BaseSnackbar>
   </div>
-  <!-- Snackbar: displays a message when the dish amount is increased or decreased. -->
-  <BaseSnackbar ref="snackbar"></BaseSnackbar>
 </template>

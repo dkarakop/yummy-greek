@@ -34,11 +34,14 @@ onBeforeUnmount(() => {
 <template>
   <Teleport to="body">
     <transition>
+      <!-- Overlay for the popup, shown when `model` is true -->
       <div v-if="model" class="overlay">
+        <!-- Popup content -->
         <div class="popup">
-          <!-- Popup Header: name & close button popup -->
           <div class="flex justify-between items-start">
+            <!-- Popup Header: name -->
             <h2 class="title title--dark">{{ props.popupName }}</h2>
+            <!-- Exit button: closes popup -->
             <button @click="closePopup" class="btn__exit" title="Close pop-up window">✕</button>
           </div>
           <slot></slot>

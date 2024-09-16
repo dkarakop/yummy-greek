@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useCartStore } from '../stores/cart.js'
+import yummyGreekLogo from '@/assets/yummy-greek-logo.png'
 import BasePopup from '@/components/BasePopup.vue'
 import BaseSnackbar from './BaseSnackbar.vue'
 
@@ -55,11 +56,11 @@ function submitReview() {
 
 <template>
   <BasePopup v-model="model">
+    <!---- Thanks message section  ---->
     <div class="flex flex-col justify-center items-center">
-      <!-- Thank you message  -->
       <h1 class="title title--lg title--dark">YummyGreek</h1>
       <img
-        src="../assets/yummy-greek-logo.png"
+        :src="yummyGreekLogo"
         alt="An illustrated Souvlaki logo with olive branches and Greek patterns"
         class="image md:w-48 lg:w-48 xl:w-48 mb-4"
       />
@@ -70,7 +71,7 @@ function submitReview() {
       We look forward to serving you again!
     </p>
 
-    <!-- Review section: rating and feedback-->
+    <!---- Review section: rating and feedback---->
     <fieldset
       class="fieldset shadow mt-20 p-4 sm:p-6 md:p-4 lg:p-4 max-w-full md:max-w-2xl mx-auto"
     >
@@ -81,7 +82,7 @@ function submitReview() {
       </p>
 
       <div class="mt-6">
-        <!-- Rating section -->
+        <!---- Rating ------>
         <div class="flex flex-col gap-2 md:space-x-4 space-y-4 md:space-y-0 mb-6">
           <label class="text text-center">
             How would you rate your overall experience with us?
@@ -103,7 +104,7 @@ function submitReview() {
           </div>
         </div>
 
-        <!-- Feedback section -->
+        <!----Feedback ---->
         <div>
           <label for="critique" class="text"> We'd love to hear your thoughts! </label>
           <textarea
@@ -124,7 +125,7 @@ function submitReview() {
       </div>
     </fieldset>
 
-    <!-- Pay section  -->
+    <!---- Pay section  ---->
     <div class="flex flex-col justify-center">
       <p class="text--large font-bold text-center mt-10">We look forward to serving you again!</p>
       <div class="flex justify-center mt-2">

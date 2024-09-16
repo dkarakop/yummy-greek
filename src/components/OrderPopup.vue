@@ -11,7 +11,7 @@ const model = defineModel({ default: false })
 
 <template>
   <BasePopup popupName="Order" v-model="model">
-    <!-- Order list with selected dishes, amounts, and prices -->
+    <!----- Order list with selected dishes, amounts, and prices ----->
     <ul>
       <li
         v-for="item in cartStore.cart.values()"
@@ -36,8 +36,7 @@ const model = defineModel({ default: false })
       </li>
     </ul>
 
-    <!-- Final amount and price of order -->
-    <!-- Final amount and price of order -->
+    <!----- Final amount and price of order ----->
     <div class="flex flex-col items-end">
       <p class="text text-right mb-2 mt-4">
         Total Amount: <span class="font-bold">{{ cartStore.totalAmountDishes }}</span>

@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink } from 'vue-router'
 import { useCartStore } from '../stores/cart.js'
+import yummyGreekLogo from '@/assets/yummy-greek-logo.png'
 
 const cartStore = useCartStore()
 </script>
@@ -9,10 +10,10 @@ const cartStore = useCartStore()
   <header class="fixed top-0 left-0 w-full bg-darkBlue py-4 px-8 shadow-lg z-50">
     <div class="w-full mx-auto flex md:flex-row justify-between items-center">
       <div class="flex gap-1 items-center">
-        <!-- Logo Button - Navigates to HomeView -->
+        <!-- Logo Button: navigates to HomeView -->
         <RouterLink to="/">
           <img
-            src="./icons/yummy-greek-logo.png"
+            :src="yummyGreekLogo"
             alt="An illustrated Souvlaki logo with olive branches and Greek patterns"
             class="w-16 h-auto p-1 shadow-2xl rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow"
             title="Go to Homepage"
@@ -22,7 +23,8 @@ const cartStore = useCartStore()
         <h1 class="title text-3xl text-yellow hidden md:block">YummyGreek</h1>
       </div>
 
-      <!-- Cart button for small screens  -->
+      <!----- Cart buttons: navigates to CartView ----->
+      <!-- Cart btn (small screens) -->
       <RouterLink
         v-if="cartStore.totalAmountDishes !== 0 && cartStore.isCartVisible"
         to="/cart"
@@ -35,7 +37,7 @@ const cartStore = useCartStore()
         </span>
       </RouterLink>
 
-      <!-- Cart button for big screens  -->
+      <!-- Cart btn (large screens) -->
       <RouterLink
         v-if="cartStore.totalAmountDishes !== 0 && cartStore.isCartVisible"
         to="/cart"

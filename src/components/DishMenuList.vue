@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useCartStore } from '../stores/cart.js'
+import resetBtnIcon from '@/assets/reset.svg'
 import BaseSnackbar from './BaseSnackbar.vue'
 import DishAmountButtons from './DishAmountButtons.vue'
 import DishPopup from './DishPopup.vue'
@@ -53,7 +54,7 @@ function resetBtn(dish) {
         class="rounded-lg w-full md:w-1/4"
       />
 
-      <!-- Dish: name, ingredients and details btn -->
+      <!-- Dish: name, ingredients and details button -->
       <div class="flex flex-col md:flex-row justify-between w-full">
         <div class="flex flex-col justify-between items-start h-full w-full md:auto">
           <!-- Name -->
@@ -62,7 +63,7 @@ function resetBtn(dish) {
           <p class="text mb-0 mt-0 md:mb-2 md:mt-4">
             {{ dish.ingredients.join(', ') }}
           </p>
-          <!-- Details btn: opens DishPopup -->
+          <!-- Details button: opens DishPopup -->
           <button
             class="btn btn--secondary btn--small mt-2"
             @click="selectDish(dish)"
@@ -92,7 +93,11 @@ function resetBtn(dish) {
             <!-- Reset button: sets the selected dish amount to zero and disappears along with the DishAmountButtons -->
             <button
               @click="resetBtn(dish)"
-              class="btn btn--secondary btn--small flex items-center justify-center bg-[url('../assets/reset.svg')] bg-[length:20px_20px] bg-no-repeat bg-center bg-contain w-10 h-10 md:w-12 md:h-12"
+              :class="[
+                'btn btn--secondary btn--small flex items-center justify-center bg-no-repeat bg-center bg-contain w-10 h-10 md:w-12 md:h-12',
+                { 'bg-[length:20px_20px]': true }
+              ]"
+              :style="{ backgroundImage: `url(${resetBtnIcon})` }"
               title="Reset the selected amount"
             ></button>
           </DishAmountButtons>

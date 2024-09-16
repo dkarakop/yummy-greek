@@ -2,9 +2,10 @@
 import { computed, ref } from 'vue'
 import { useCartStore } from '../stores/cart.js'
 import { getDishes } from '@/modules/api'
+import emptyPlateImage from '@/assets/empty-plate.webp'
 import AppHeader from '@/components/AppHeader.vue'
 import FiltersPopup from '@/components/FiltersPopup.vue'
-import DishMenuItem from '@/components/DishMenuItem.vue'
+import DishMenuList from '@/components/DishMenuList.vue'
 
 const cartStore = useCartStore()
 cartStore.isCartVisible = true
@@ -212,11 +213,13 @@ function togglePriceOrder() {
     <!-- Page header -->
     <h1 class="header header--medium-emphasis">Our menu</h1>
 
-    <!-- Page content displaying all dishes or only those that match the user's selected filters -->
+    <!----------------------------------------------------------------------------------------------->
+    <!--- Page content displaying all dishes or only those that match the user's selected filters --->
     <div
       v-if="dishesComputed.length !== 0"
       class="flex flex-col gap-2 md:flex-row justify-between items-start mb-6"
     >
+      <!---- Buttons section ---->
       <!-- Filter button: opens the FilterPopup -->
       <button @click="openFilterModel" class="btn btn--secondary btn--small" title="Filter Dishes">
         Filters
@@ -250,18 +253,16 @@ function togglePriceOrder() {
       </div>
     </div>
 
-    <!-- List displaying all dishes or filtered dishes -->
-    <ul>
-      <DishMenuItem :dishes="dishesComputed" />
-    </ul>
+    <!-- List for displaying all dishes or filtered dishes -->
+    <DishMenuList :dishes="dishesComputed" />
 
-    <!---------------------------------------------------------->
+    <!---------------------------------------------------------------------->
     <!-- Page content displayed when no dishes match the selected filters -->
     <div v-if="dishesComputed.length === 0" class="flex flex-col items-center gap-3 mb-8">
       <!-- Message  -->
       <p class="text items-center text-center">Sorry, no dishes match your selected filters.</p>
       <img
-        src="../assets/empty-plate.webp"
+        :src="emptyPlateImage"
         alt=" illustrated cartoon of a sad Greek chef. It captures the emotion of disappointment, as if there are no dishes matching the selected filters. "
         class="image"
       />
@@ -277,6 +278,6 @@ function togglePriceOrder() {
       </button>
     </div>
   </main>
-  <!-- Popup -->
+  <!--- Popup --->
   <FiltersPopup v-model="showFilterModal" @filters="applyFilters" />
 </template>

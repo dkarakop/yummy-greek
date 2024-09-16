@@ -1,6 +1,8 @@
 <script setup>
 import { RouterLink } from 'vue-router'
 import { useCartStore } from '../stores/cart.js'
+import deleteBtnIcon from '@/assets/delete.svg'
+import waiterImage from '@/assets/waiter.webp'
 import AppHeader from '@/components/AppHeader.vue'
 import DishAmountButtons from '@/components/DishAmountButtons.vue'
 
@@ -14,13 +16,14 @@ cartStore.isCartVisible = false
     <!-- Page header -->
     <h1 class="header header--medium-emphasis">Your cart</h1>
 
-    <!-- Page content when the cart is not empty -->
+    <!--------------------------------------------------------------------->
+    <!-------------- Page content when the cart is not empty -------------->
     <div
       v-if="cartStore.totalAmountDishes !== 0"
       class="flex flex-col md:flex-row rounded-lg bg-white md:items-center p-4 space-y-4 md:space-y-0 md:space-x-4 w-full mb-4 border shadow-md"
     >
       <div class="flex flex-col w-full">
-        <!-- Order list with selected dishes, amounts, prices, and options to edit the dish quantities -->
+        <!---- Order list section with selected dishes, amounts, prices, and options to edit the dish quantities ---->
         <ul>
           <li
             v-for="item in cartStore.cart.values()"
@@ -40,7 +43,7 @@ cartStore.isCartVisible = false
             </div>
 
             <!-- DishAmountButtons: add/remove a dish and Delete button -->
-            <DishAmountButtons :dish="item.data" class="md:auto items-end">
+            <DishAmountButtons :dish="item.data" class="md:auto items-start">
               <!-- Dish: price -->
               <p class="md:mt-0">
                 {{ '€' + item.data.price }}
@@ -48,7 +51,11 @@ cartStore.isCartVisible = false
 
               <!-- Delete button with background image -->
               <button
-                class="btn btn--secondary btn--small flex items-center justify-center bg-[url('../assets/delete.svg')] bg-no-repeat bg-center bg-contain w-10 h-10 md:w-12 md:h-12"
+                :class="[
+                  'btn btn--secondary btn--small flex items-center justify-center bg-no-repeat bg-center bg-contain w-10 h-10 md:w-12 md:h-12',
+                  { 'bg-[length:20px_20px]': true }
+                ]"
+                :style="{ backgroundImage: `url(${deleteBtnIcon})` }"
                 @click="cartStore.deleteDish(item.data)"
                 :title="'Delete ' + item.data.name + ' from your cart'"
               >
@@ -69,7 +76,7 @@ cartStore.isCartVisible = false
       </div>
     </div>
 
-    <!-- Buttons section -->
+    <!---- Buttons section ---->
     <div
       class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 mb-8"
       v-if="cartStore.totalAmountDishes !== 0"
@@ -84,13 +91,13 @@ cartStore.isCartVisible = false
       >
     </div>
 
-    <!---------------------------------------------------------->
-    <!-- Page content when the cart is empty -->
+    <!------------------------------------------------------------------>
+    <!--------------  Page content when the cart is empty -------------->
     <div v-else class="flex flex-col items-center gap-3 mb-8">
       <!-- Message -->
       <p class="text items-center text-center">You cart is <span class="font-bold">empty</span>!</p>
       <img
-        src="../assets/waiter.webp"
+        :src="waiterImage"
         alt="An illustration of the sad Greek waiter shrugging his shoulders, indicating confusion due to the user's empty order. "
         class="image"
       />

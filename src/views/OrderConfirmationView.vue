@@ -2,6 +2,9 @@
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useCartStore } from '../stores/cart.js'
+import grannyImage from '@/assets/granny.webp'
+import somethingWentWrongImage from '@/assets/something-wrong.webp'
+
 import AppHeader from '@/components/AppHeader.vue'
 import OrderPopup from '@/components/OrderPopup.vue'
 import ReviewPopup from '@/components/ReviewPopup.vue'
@@ -18,13 +21,14 @@ const showReviewPopup = ref(false)
 <template>
   <AppHeader></AppHeader>
   <main v-if="cartStore.totalAmountDishes !== 0" class="main">
-    <!-- Page content displayed when the order is confirmed -->
+    <!-------------------------------------------------------------------------------->
+    <!-------------- Page content displayed when the order is confirmed -------------->
     <div class="flex flex-col items-center mb-8">
       <!-- Message -->
       <p class="text--large font-extrabold text-center mt-4">Your order is being prepared!</p>
 
       <img
-        src="../assets/granny.webp"
+        :src="grannyImage"
         alt="A cheerful elderly Greek woman, dressed in traditional black clothing and a headscarf, holding a plate with delicious Greek food. The background features Greek pottery, olive branches, and a stylized image of the Parthenon"
         class="image"
       />
@@ -47,7 +51,7 @@ const showReviewPopup = ref(false)
       </button>
     </div>
 
-    <!-- Buttons Section -->
+    <!---- Buttons section ---->
     <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 mb-8">
       <!-- Menu button: navigates the user to the Menu page -->
       <RouterLink to="/menu" class="btn btn--secondary" title="Return to the menu">
@@ -61,8 +65,8 @@ const showReviewPopup = ref(false)
     </div>
   </main>
 
-  <!---------------------------------------------------------->
-  <!-- Page content displayed when something goes wrong with the order -->
+  <!--------------------------------------------------------------------------------------------->
+  <!-------------- Page content displayed when something goes wrong with the order -------------->
   <main v-else class="main flex flex-col items-center gap-3 mb-8">
     <!-- Message -->
     <p class="text items-center text-center">
@@ -71,7 +75,7 @@ const showReviewPopup = ref(false)
       off.
     </p>
     <img
-      src="../assets/something-wrong.webp"
+      :src="somethingWentWrongImage"
       alt="A funny cartoon illustration of Greek waiters and waitresses trying to figure out what went wrong in the restaurant. "
       class="image"
     />

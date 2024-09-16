@@ -66,7 +66,7 @@ const resetFilters = () => {
 
 <template>
   <BasePopup popupName="Filters" v-model="model">
-    <!-- Filters -->
+    <!----------- Filters section ----------->
     <div class="flex flex-col gap-6 md:flex-row pop-content w-full">
       <!-- Dietary Preferences Checkbox-->
       <fieldset class="fieldset mt-4 flex-1 shadow">
@@ -97,7 +97,7 @@ const resetFilters = () => {
       ></BaseRadio>
     </div>
 
-    <!-- Buttons -->
+    <!----------- Buttons section ----------->
     <!-- Reset button: resets the selected filters to their default state -->
     <div class="mt-6 flex flex-col md:flex-row md:justify-between">
       <button
