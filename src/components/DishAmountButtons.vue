@@ -25,10 +25,10 @@ function removeDish() {
 </script>
 
 <template>
-  <div class="flex flex-col md:flex-row w-full items-start md:items-center gap-4">
+  <div class="flex flex-col md:flex-row w-full md:w-auto items-start md:items-center gap-4">
     <slot></slot>
 
-    <div class="flex justify-between items-center gap-4 w-full">
+    <div class="flex justify-between items-center w-full">
       <!-- Decrease btn:decreases the amount of selected dish by 1  -->
       <button
         class="btn btn--primary min-w-12 min-h-12 hover:no-underline focus:hover:no-underline"
@@ -38,7 +38,10 @@ function removeDish() {
         -
       </button>
 
-      <p class="bg-white rounded-lg px-4 py-2 text-center w-full md:w-auto">
+      <p
+        class="bg-white rounded-lg px-4 py-2 text-center w-auto h-auto m-1"
+        title="Desired dish amount"
+      >
         {{ cartStore.getDishAmount(props.dish) }}
       </p>
       <!-- Increase btn:increases the amount of selected dish by 1  -->
