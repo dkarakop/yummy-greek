@@ -41,7 +41,7 @@ body {
   @apply fixed inset-0 z-50 flex items-center justify-center bg-grey bg-opacity-75;
 }
 .popup {
-  @apply bg-white rounded-lg shadow-lg p-6 relative w-10/12 overflow-y-auto max-h-[80vh];
+  @apply bg-white rounded-lg shadow-lg p-6 relative w-10/12 overflow-y-auto max-h-[85vh];
 }
 
 /* ------------------ Headers ------------------ */

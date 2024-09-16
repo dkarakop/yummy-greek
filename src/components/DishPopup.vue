@@ -89,8 +89,9 @@ function resetBtn(dish) {
         <img
           :src="dish.image"
           :alt="'A picture of our delicious dish ' + dish.name"
-          class="rounded-lg w-full h-full object-cover flex-1"
+          class="rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4 h-auto object-cover"
         />
+
         <div class="flex flex-col md:flex-row items-start justify-between w-full gap-4s">
           <!-- Description -->
           <div>
@@ -116,11 +117,9 @@ function resetBtn(dish) {
                 <!-- Reset button: sets the selected dish amount to zero and disappears along with the DishAmountButtons -->
                 <button
                   @click="resetBtn(dish)"
-                  class="btn btn--secondary btn--small"
+                  class="btn btn--secondary btn--small flex items-center justify-center bg-[url('../assets/reset.svg')] bg-no-repeat bg-center bg-contain w-10 h-10 md:w-12 md:h-12"
                   title="Reset the selected amount"
-                >
-                  Reset
-                </button>
+                ></button>
               </DishAmountButtons>
               <!-- AddToCart button: adds one dish to the cart and then disappears -->
               <button v-else class="btn btn--primary" @click="addDishItem(dish)">

@@ -91,11 +91,9 @@ function resetBtn(dish) {
           <!-- Reset button: sets the selected dish amount to zero and disappears along with the DishAmountButtons -->
           <button
             @click="resetBtn(dish)"
-            class="btn btn--secondary btn--small"
+            class="btn btn--secondary btn--small flex items-center justify-center bg-[url('../assets/reset.svg')] bg-no-repeat bg-center bg-contain w-10 h-10 md:w-12 md:h-12"
             title="Reset the selected amount"
-          >
-            Reset
-          </button>
+          ></button>
         </DishAmountButtons>
       </div>
     </div>
