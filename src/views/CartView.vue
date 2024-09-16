@@ -50,7 +50,7 @@ cartStore.isCartVisible = false
 
               <!-- Delete button with background image -->
               <button
-                class="btn btn--secondary btn--small flex items-center justify-center bg-[url('delete.svg')] bg-[length:22px_22px] bg-no-repeat bg-center bg-contain w-10 h-10 md:w-12 md:h-12"
+                class="btn btn--secondary btn--small flex items-center justify-center bg-[url('delete.svg')] bg-no-repeat bg-center bg-auto w-10 h-10 md:w-12 md:h-12"
                 @click="cartStore.deleteDish(item.data)"
                 :title="'Delete ' + item.data.name + ' from your cart'"
               >
