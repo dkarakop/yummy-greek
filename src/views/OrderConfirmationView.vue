@@ -24,7 +24,7 @@ const showReviewPopup = ref(false)
       <p class="text--large font-extrabold text-center mt-4">Your order is being prepared!</p>
 
       <img
-        src="../components/icons/granny.webp"
+        src="../assets/granny.webp"
         alt="A cheerful elderly Greek woman, dressed in traditional black clothing and a headscarf, holding a plate with delicious Greek food. The background features Greek pottery, olive branches, and a stylized image of the Parthenon"
         class="image"
       />
@@ -71,7 +71,7 @@ const showReviewPopup = ref(false)
       off.
     </p>
     <img
-      src="../components/icons/something-wrong.webp"
+      src="../assets/something-wrong.webp"
       alt="A funny cartoon illustration of Greek waiters and waitresses trying to figure out what went wrong in the restaurant. "
       class="image"
     />

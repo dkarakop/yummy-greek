@@ -59,7 +59,7 @@ function submitReview() {
       <!-- Thank you message  -->
       <h1 class="title title--lg title--dark">YummyGreek</h1>
       <img
-        src="../components/icons/yummy-greek-logo.png"
+        src="../assets/yummy-greek-logo.png"
         alt="An illustrated Souvlaki logo with olive branches and Greek patterns"
         class="image md:w-48 lg:w-48 xl:w-48 mb-4"
       />

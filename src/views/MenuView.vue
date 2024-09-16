@@ -261,7 +261,7 @@ function togglePriceOrder() {
       <!-- Message  -->
       <p class="text items-center text-center">Sorry, no dishes match your selected filters.</p>
       <img
-        src="../components/icons/empty-plate.webp"
+        src="../assets/empty-plate.webp"
         alt=" illustrated cartoon of a sad Greek chef. It captures the emotion of disappointment, as if there are no dishes matching the selected filters. "
         class="image"
       />

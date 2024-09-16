@@ -90,7 +90,7 @@ cartStore.isCartVisible = false
       <!-- Message -->
       <p class="text items-center text-center">You cart is <span class="font-bold">empty</span>!</p>
       <img
-        src="../components/icons/waiter.webp"
+        src="../assets/waiter.webp"
         alt="An illustration of the sad Greek waiter shrugging his shoulders, indicating confusion due to the user's empty order. "
         class="image"
       />

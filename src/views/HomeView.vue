@@ -10,7 +10,7 @@ import { RouterLink } from 'vue-router'
 
     <!-- Logo of the restaurant  -->
     <img
-      src="../components/icons/yummy-greek-logo.png"
+      src="../assets/yummy-greek-logo.png"
       alt="An illustrated Souvlaki logo with olive branches and Greek patterns"
       class="icon__logo"
     />
@@ -25,7 +25,7 @@ import { RouterLink } from 'vue-router'
     <div class="flex flex-col items-center m-5 pt-5 border-t border-grey">
       <!-- Logo of the Golden Award won by the restaurant, recognizing its inclusivity -->
       <img
-        src="../components/icons/award.webp"
+        src="../assets/award.webp"
         alt="Golden Award Logo Without Exclusions"
         class="icon__award"
       />
