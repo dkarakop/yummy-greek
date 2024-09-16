@@ -35,55 +35,55 @@ const dishesComputed = computed(function () {
   // Dietary Preferences --->
   // Vegan
   if (filters.value.vegan) {
-    const filtered = allDishes.value.filter((dish) => dish.processedTags.vegan === true)
+    const filtered = allDishes.value.filter((dish) => dish.processedTags.dietPref.vegan)
     filtered.forEach((dish) => result.push(dish))
   }
 
   // Vegetarian
   if (filters.value.vegetarian) {
-    const filtered = allDishes.value.filter((dish) => dish.processedTags.vegetarian === true)
+    const filtered = allDishes.value.filter((dish) => dish.processedTags.dietPref.vegetarian)
     filtered.forEach((dish) => result.push(dish))
   }
   // Gluten-free
   if (filters.value.glutenFree) {
-    const filtered = allDishes.value.filter((dish) => dish.processedTags.gluten !== true)
+    const filtered = allDishes.value.filter((dish) => dish.processedTags.dietPref.glutenFree)
     filtered.forEach((dish) => result.push(dish))
   }
   // Lactose-free
   if (filters.value.lactoseFree) {
-    const filtered = allDishes.value.filter((dish) => dish.processedTags.lactose !== true)
+    const filtered = allDishes.value.filter((dish) => dish.processedTags.dietPref.lactoseFree)
     filtered.forEach((dish) => result.push(dish))
   }
   // Nut-free
   if (filters.value.nutFree) {
-    const filtered = allDishes.value.filter((dish) => dish.processedTags.nuts !== true)
+    const filtered = allDishes.value.filter((dish) => dish.processedTags.dietPref.nutFree)
     filtered.forEach((dish) => result.push(dish))
   }
 
   // Allergens --->
   // Nuts-Allergy
   if (filters.value.nutsAllergy) {
-    const filtered = allDishes.value.filter((dish) => dish.processedTags.nuts === true)
+    const filtered = allDishes.value.filter((dish) => dish.processedTags.allergens.containsNuts)
     filtered.forEach((dish) => result.push(dish))
   }
   // Gluten-Allergy
   if (filters.value.glutenAllergy) {
-    const filtered = allDishes.value.filter((dish) => dish.processedTags.gluten === true)
+    const filtered = allDishes.value.filter((dish) => dish.processedTags.allergens.containsGluten)
     filtered.forEach((dish) => result.push(dish))
   }
   // Lactose-Allergy
   if (filters.value.lasctoseAllergy) {
-    const filtered = allDishes.value.filter((dish) => dish.processedTags.lactose === true)
+    const filtered = allDishes.value.filter((dish) => dish.processedTags.allergens.containsLactose)
     filtered.forEach((dish) => result.push(dish))
   }
   // Other Allergens
   if (filters.value.otherAllergens) {
-    const filtered = allDishes.value.filter((dish) => dish.processedTags.other === true)
+    const filtered = allDishes.value.filter((dish) => dish.processedTags.allergens.other)
     filtered.forEach((dish) => result.push(dish))
   }
   // Allergens Free
   if (filters.value.allergenFree) {
-    const filtered = allDishes.value.filter((dish) => dish.processedTags.allergenFree === true)
+    const filtered = allDishes.value.filter((dish) => dish.processedTags.allergens.allergenFree)
     filtered.forEach((dish) => result.push(dish))
   }
 

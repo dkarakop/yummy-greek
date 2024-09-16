@@ -37,14 +37,14 @@ export function getDish(id) {
  */
 function processTags(dish) {
   const processedTags = {
-    processedDietPref: {
+    dietPref: {
       vegan: false,
       vegetarian: false,
       glutenFree: false,
       lactoseFree: false,
-      nutsFree: false
+      nutFree: false
     },
-    processedAllergens: {
+    allergens: {
       containsNuts: false,
       containsGluten: false,
       containsLactose: false,
@@ -56,7 +56,7 @@ function processTags(dish) {
       vegetarian: 'vegeterian',
       glutenFree: 'gluten-free',
       lactoseFree: 'lactose-free',
-      nutsFree: 'nuts-free',
+      nutFree: 'nuts-free',
       containsNuts: 'contains-nuts',
       containsGluten: 'contains-gluten',
       containsLactose: 'contains-lactose',
@@ -74,20 +74,20 @@ function processTags(dish) {
     allTags = dish.tags.dietaryPreferences.concat(dish.tags.allergens)
   }
 
-  // processedDietPref: Boolean values indicating specific dietary preferences such as vegan, vegetarian, gluten-free, etc.
-  processedTags.processedDietPref.vegan = allTags.includes('vegan')
-  processedTags.processedDietPref.vegetarian = allTags.includes('vegetarian')
-  processedTags.processedDietPref.glutenFree =
+  // dietPref: Boolean values indicating specific dietary preferences such as vegan, vegetarian, gluten-free, etc.
+  processedTags.dietPref.vegan = allTags.includes('vegan')
+  processedTags.dietPref.vegetarian = allTags.includes('vegetarian')
+  processedTags.dietPref.glutenFree =
     allTags.includes('gluten-free') && !allTags.includes('contains-gluten')
-  processedTags.processedDietPref.lactoseFree = allTags.includes('lactose-free')
-  processedTags.processedDietPref.nutsFree = !allTags.includes('contains-nuts')
+  processedTags.dietPref.lactoseFree = allTags.includes('lactose-free')
+  processedTags.dietPref.nutFree = !allTags.includes('contains-nuts')
 
-  // processedAllergens`: Boolean values identifying the presence of common allergens like nuts, gluten, lactose, and others.
-  processedTags.processedAllergens.containsNuts = allTags.includes('contains-nuts')
-  processedTags.processedAllergens.containsGluten =
+  // allergens`: Boolean values identifying the presence of common allergens like nuts, gluten, lactose, and others.
+  processedTags.allergens.containsNuts = allTags.includes('contains-nuts')
+  processedTags.allergens.containsGluten =
     allTags.includes('contains-gluten') || !allTags.includes('gluten-free')
-  processedTags.processedAllergens.containsLactose = !allTags.includes('lactose-free')
-  processedTags.processedAllergens.containsAllergens =
+  processedTags.allergens.containsLactose = !allTags.includes('lactose-free')
+  processedTags.allergens.containsAllergens =
     !allTags.includes('contains-nuts') &&
     allTags.includes('lactose-free') &&
     allTags.includes('gluten-free')
@@ -101,7 +101,7 @@ function processTags(dish) {
       'gluten-free'
     ]
     if (!tags.includes(tag)) {
-      processedTags.processedAllergens.other = true
+      processedTags.allergens.other = true
     }
   })
 
