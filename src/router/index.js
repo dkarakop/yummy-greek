@@ -25,12 +25,8 @@ const router = createRouter({
     }
   ],
   // Always scroll to the top when navigating through the app
-  scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition
-    } else {
-      return { top: 0 }
-    }
+  scrollBehavior() {
+    return { top: 0 }
   }
 })
 

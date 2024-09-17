@@ -26,7 +26,7 @@ cartStore.isCartVisible = false
         <ul>
           <li
             v-for="item in cartStore.cart.values()"
-            :key="item.data.id"
+            :key="item.id"
             class="flex w-full flex-col md:flex-row bg-white md:items-center space-y-4 md:space-y-0 md:space-x-4 w-full p-4 border-b-2 last:border-b-4 last:border-double last:border-grey last:pb-6 last:mb-3"
           >
             <!-- Dish: image -->
