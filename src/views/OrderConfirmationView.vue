@@ -63,6 +63,9 @@ const showReviewPopup = ref(false)
         I would like to pay &rsaquo;
       </button>
     </div>
+    <!-- Popups -->
+    <OrderPopup v-model="showOrderPopup"></OrderPopup>
+    <ReviewPopup v-model="showReviewPopup"></ReviewPopup>
   </main>
 
   <!--------------------------------------------------------------------------------------------->
@@ -84,9 +87,8 @@ const showReviewPopup = ref(false)
     </p>
     <!-- Menu button: navigates the user back to the Menu page to try ordering again -->
     <RouterLink to="/menu" class="btn btn--primary" title="Return to the menu"> Menu</RouterLink>
+    <!-- Popups -->
+    <OrderPopup v-model="showOrderPopup"></OrderPopup>
+    <ReviewPopup v-model="showReviewPopup"></ReviewPopup>
   </main>
-
-  <!-- Popups -->
-  <OrderPopup v-model="showOrderPopup"></OrderPopup>
-  <ReviewPopup v-model="showReviewPopup"></ReviewPopup>
 </template>

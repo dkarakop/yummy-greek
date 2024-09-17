@@ -277,7 +277,7 @@ function togglePriceOrder() {
         Try again
       </button>
     </div>
+    <!--- Filters Popup --->
+    <FiltersPopup v-model="showFilterModal" @filters="applyFilters" />
   </main>
-  <!--- Popup --->
-  <FiltersPopup v-model="showFilterModal" @filters="applyFilters" />
 </template>
