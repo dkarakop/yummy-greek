@@ -4,6 +4,7 @@ import { ref, computed } from 'vue'
 export const useCartStore = defineStore('cart', () => {
   //----  Refs & Vars ----//
 
+  // Reactive Map to store cart items, mapping (dish.id) to their corresponding cartItem
   const cart = ref(new Map())
   const isCartVisible = ref(true)
 
@@ -30,7 +31,7 @@ export const useCartStore = defineStore('cart', () => {
     cart.value.forEach((cartItem) => {
       total += cartItem.data.price * cartItem.amount
     })
-    return total.toFixed(2)
+    return total.toFixed(2) // number with 2 decimals
   })
 
   /**
@@ -57,7 +58,7 @@ export const useCartStore = defineStore('cart', () => {
     if (cartItem) {
       cartItem.amount--
       if (cartItem.amount <= 0) {
-        cart.value.delete(dish.id)
+        deleteDish(dish)
       }
     }
   }
