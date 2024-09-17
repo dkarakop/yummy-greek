@@ -51,11 +51,11 @@ function resetBtn(dish) {
         <div class="flex flex-col md:flex-row items-start md:items-center">
           <!-- Tags: Dietary Preferences -->
           <div class="flex flex-wrap items-center">
-            <template v-for="(tag, index) in dish.processedTags.dietPref" :key="tag + '-' + index"
+            <template v-for="(tag, index) in dish.processedTags?.dietPref" :key="tag + '-' + index"
               ><div
                 v-if="tag"
                 class="tags tags--dietary"
-                :title="'Dietary Preferences tag of ' + dish.processedTags.dietPref"
+                :title="'Dietary Preferences tag of ' + dish.processedTags?.dietPref"
               >
                 {{ dish.processedTags.names[index] }}
               </div>
@@ -63,11 +63,14 @@ function resetBtn(dish) {
           </div>
           <!-- Tags: Allergens -->
           <div class="flex flex-wrap items-center">
-            <template v-for="(tag, index) in dish.processedTags.allergens" :key="tag + '-' + index">
+            <template
+              v-for="(tag, index) in dish.processedTags?.allergens"
+              :key="tag + '-' + index"
+            >
               <div
                 v-if="tag"
                 class="tags tags--allergnen"
-                :title="'Allergen tag: ' + dish.processedTags.allergens"
+                :title="'Allergen tag: ' + dish.processedTags?.allergens"
               >
                 {{ dish.processedTags.names[index] }}
               </div>

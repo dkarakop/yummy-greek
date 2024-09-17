@@ -3,7 +3,8 @@
 
 const props = defineProps({
   options: { type: Array, required: true },
-  name: { type: String, required: true }
+  name: { type: String, required: true },
+  title: { type: String, required: true }
 })
 
 const model = defineModel()
@@ -17,7 +18,7 @@ function selectedOption(e) {
 
 <template>
   <fieldset class="fieldset mt-4">
-    <legend class="header__small">Price Range</legend>
+    <legend class="header__small">{{ props.title }}</legend>
     <div v-for="(option, index) in props.options" :key="index">
       <input
         type="radio"

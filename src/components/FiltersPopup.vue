@@ -47,20 +47,10 @@ const applyFilters = () => {
 
 const resetFilters = () => {
   emit('filters', {
-    initialFilters
+    ...initialFilters
   })
-  filters.vegan = false
-  filters.vegetarian = false
-  filters.glutenFree = false
-  filters.lactoseFree = false
-  filters.nutFree = false
-  filters.nutsAllergy = false
-  filters.glutenAllergy = false
-  filters.lasctoseAllergy = false
-  filters.otherAllergens = false
-  filters.allergenFree = false
-  filters.priceRange = null
-  model.value = true
+  //Reset checked filters
+  Object.assign(filters, initialFilters)
 }
 </script>
 
@@ -91,6 +81,7 @@ const resetFilters = () => {
       <!-- Price Range -->
       <BaseRadio
         :options="priceOptions"
+        title="Price Range"
         name="priceRange"
         v-model="filters.priceRange"
         class="fieldset mt-4 flex-1 shadow"
