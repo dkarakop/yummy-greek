@@ -58,8 +58,8 @@ Backend:
 json-server --watch db.json
 ```
 
-[!NOTE]
-To change the default backend URL, edit the `apiUrl` variable in the _modules/api.js_
+> [!NOTE]
+> To change the default backend URL, edit the `apiUrl` variable in the _modules/api.js_
 
 Frontend:
 
